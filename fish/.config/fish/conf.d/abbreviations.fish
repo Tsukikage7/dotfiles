@@ -180,5 +180,4 @@ if status is-interactive
     abbr -a today 'date +"%Y-%m-%d"'
     abbr -a timestamp 'date +%s'
     
-    echo "✅ 缩写配置已加载 - 输入缩写后按空格展开"
 end

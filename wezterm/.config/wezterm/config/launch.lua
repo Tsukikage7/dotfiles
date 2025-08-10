@@ -14,7 +14,7 @@ if platform.is_win then
       { label = 'Nushell', args = { 'nu' } },
    }
 elseif platform.is_mac then
-   options.default_prog = { '/bin/zsh', '-l' }
+   options.default_prog = { '/opt/homebrew/bin/fish', '-l' }
    options.launch_menu = {
       { label = 'Bash', args = { 'bash', '-l' } },
       { label = 'Fish', args = { '/opt/homebrew/bin/fish', '-l' } },

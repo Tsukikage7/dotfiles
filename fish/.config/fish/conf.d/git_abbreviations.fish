@@ -75,5 +75,4 @@ if status is-interactive
     abbr -a gcl 'git clone'
     abbr -a gsh 'git show'
     
-    echo "✅ 精简 Git 缩写已加载 - 共 $(count (abbr --list | grep '^g')) 个"
 end
