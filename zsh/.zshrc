@@ -15,14 +15,14 @@ ZSH_PLUGINS=(
   git
   kubectl
   sudo
-  zsh-interactive-cd
+  # zsh-interactive-cd
   )
 
 
 # zoxide config
-eval "$(zoxide init zsh)"
-eval "$(zoxide init zsh --cmd z)"
-eval "$(zoxide init zsh --cmd cd)"
+# eval "$(zoxide init zsh)"
+# eval "$(zoxide init zsh --cmd z)"
+# eval "$(zoxide init zsh --cmd cd)"
 
 # User configuration
 # You may need to manually set your language environment
@@ -99,6 +99,12 @@ alias pt="nexttrace"
 # ========== Envirment Variables ==========
 # =========================================
 
+# google
+export GOOGLE_CLOUD_PROJECT=chongyan
+
+# SIMPALE_ADMIN
+export SIMPLE_LANG=zh
+
 # X CMD
 # [ ! -f "$HOME/.x-cmd.root/X" ] || . "$HOME/.x-cmd.root/X" # boot up x-cmd.
 xc() {
@@ -107,6 +113,7 @@ xc() {
 }
 
 export NEXTTRACE_POWPROVIDER=sakura
+
 
 # Java Environment Variable
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home
@@ -174,3 +181,7 @@ for plugin in "${ZSH_PLUGINS[@]}"; do
     source "$ZSH_PLUGINS_DIR/$plugin.zsh"
   fi
 done
+# Added by Windsurf
+export PATH="/Users/chongyan/.codeium/windsurf/bin:$PATH"
+
+[[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
