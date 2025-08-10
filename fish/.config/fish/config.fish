@@ -2,7 +2,7 @@
 # Migrated from zsh configuration
 
 # Initialize starship prompt with custom config
-set -gx STARSHIP_CONFIG /Users/tsukikage/dotfiles/starship/starship.toml
+set -gx STARSHIP_CONFIG ~/dotfiles/starship/.config/starship.toml
 if command -v starship >/dev/null 2>&1
     source (/opt/homebrew/bin/starship init fish --print-full-init | psub)
 end
