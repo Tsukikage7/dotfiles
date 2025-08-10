@@ -150,17 +150,16 @@ if status is-interactive
     # ===============================
     # ======== 快速导航 =============
     # ===============================
-    abbr -a cd z
-    abbr -a .. 'z ..'
-    abbr -a ... 'z ../..'
-    abbr -a .... 'z ../../..'
-    abbr -a ..... 'z ../../../..'
+    abbr -a .. 'cd ..'
+    abbr -a ... 'cd ../..'
+    abbr -a .... 'cd ../../..'
+    abbr -a ..... 'cd ../../../..'
     
     # 常用目录
-    abbr -a home 'z ~'
-    abbr -a desktop 'z ~/Desktop'
-    abbr -a downloads 'z ~/Downloads'
-    abbr -a documents 'z ~/Documents'
+    abbr -a home 'cd ~'
+    abbr -a desktop 'cd ~/Desktop'
+    abbr -a downloads 'cd ~/Downloads'
+    abbr -a documents 'cd ~/Documents'
     
     # ===============================
     # ======== 实用工具 =============
@@ -181,5 +180,17 @@ if status is-interactive
     abbr -a now 'date +"%Y-%m-%d %H:%M:%S"'
     abbr -a today 'date +"%Y-%m-%d"'
     abbr -a timestamp 'date +%s'
+    
+    # ===============================
+    # ======== 命令重命名 ===========
+    # ===============================
+    # cd命令重命名为z，使用z进行目录跳转
+    # abbr -a cd z
+    
+    # history命令重命名为h，快速查看命令历史
+    abbr -a h history
+    
+    # claude命令重命名为calude，跳过权限检查
+    abbr -a calude 'claude --dangerously-skip-permissions'
     
 end
