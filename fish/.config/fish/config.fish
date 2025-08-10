@@ -1,5 +1,7 @@
 # Fish Shell Configuration
-# Migrated from zsh configuration
+
+# Initialize system PATH
+set -gx PATH /opt/homebrew/bin /opt/homebrew/sbin /usr/local/bin /usr/bin /bin /usr/sbin /sbin $PATH
 
 # Initialize starship prompt with custom config
 set -gx STARSHIP_CONFIG ~/dotfiles/starship/.config/starship.toml

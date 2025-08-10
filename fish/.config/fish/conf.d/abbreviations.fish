@@ -117,6 +117,7 @@ if status is-interactive
     abbr -a dcu 'docker compose up'
     abbr -a dcd 'docker compose down'
     abbr -a dcb 'docker compose build'
+    abbr -a dcls 'docker compose ls'
     abbr -a dps 'docker ps'
     abbr -a dimg 'docker images'
     abbr -a drmi 'docker rmi'
@@ -149,16 +150,17 @@ if status is-interactive
     # ===============================
     # ======== 快速导航 =============
     # ===============================
-    abbr -a .. 'cd ..'
-    abbr -a ... 'cd ../..'
-    abbr -a .... 'cd ../../..'
-    abbr -a ..... 'cd ../../../..'
+    abbr -a cd z
+    abbr -a .. 'z ..'
+    abbr -a ... 'z ../..'
+    abbr -a .... 'z ../../..'
+    abbr -a ..... 'z ../../../..'
     
     # 常用目录
-    abbr -a home 'cd ~'
-    abbr -a desktop 'cd ~/Desktop'
-    abbr -a downloads 'cd ~/Downloads'
-    abbr -a documents 'cd ~/Documents'
+    abbr -a home 'z ~'
+    abbr -a desktop 'z ~/Desktop'
+    abbr -a downloads 'z ~/Downloads'
+    abbr -a documents 'z ~/Documents'
     
     # ===============================
     # ======== 实用工具 =============
