@@ -39,7 +39,6 @@ fi
 # ===========================
 # ========== Alias ==========
 # ===========================
-alias x="xc"
 
 # Alias for kitty
 alias diff="kitty +kitten diff"
@@ -105,12 +104,6 @@ export GOOGLE_CLOUD_PROJECT=chongyan
 # SIMPALE_ADMIN
 export SIMPLE_LANG=zh
 
-# X CMD
-# [ ! -f "$HOME/.x-cmd.root/X" ] || . "$HOME/.x-cmd.root/X" # boot up x-cmd.
-xc() {
-  . "$HOME/.x-cmd.root/X"
-  ___x_cmd "$@"
-}
 
 export NEXTTRACE_POWPROVIDER=sakura
 
