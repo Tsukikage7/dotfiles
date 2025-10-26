@@ -33,6 +33,21 @@ return {
       -- 默认表辅助工具
       vim.g.db_ui_show_help = 1
 
+      -- 字符编码配置（修复中文乱码）
+      vim.g.db_ui_env = {
+        PGCLIENTENCODING = "UTF8", -- PostgreSQL 客户端编码
+        MYSQL_PWD = "", -- MySQL 密码（如需要）
+      }
+
+      -- 设置 SQL 文件编码
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = { "sql", "mysql", "plsql" },
+        callback = function()
+          vim.opt_local.fileencoding = "utf-8"
+          vim.opt_local.encoding = "utf-8"
+        end,
+      })
+
       -- 从项目根目录加载数据库连接配置
       -- 支持的配置文件：.lazy.lua, .dbui.lua, .dadbod.lua
       local function load_project_dbs()
@@ -65,33 +80,33 @@ return {
       })
 
 
-      -- 图标配置
+      -- 图标配置（使用 Material Design Icons）
       vim.g.db_ui_icons = {
         expanded = {
-          db = "▾ ",
-          buffers = "▾ ",
-          saved_queries = "▾ ",
-          schemas = "▾ ",
-          schema = "▾ פּ",
-          tables = "▾ 藺",
-          table = "▾ ",
+          db = "▾ 󰆼 ",              -- 数据库（展开）nf-md-database
+          buffers = "▾ 󰈔 ",         -- 缓冲区（展开）nf-md-file_document
+          saved_queries = "▾ 󰆼 ",   -- 保存的查询（展开）nf-md-content_save_all
+          schemas = "▾ 󰉋 ",         -- 架构列表（展开）nf-md-folder_outline
+          schema = "▾ 󰉋 ",          -- 单个架构（展开）nf-md-folder
+          tables = "▾ 󰓫 ",          -- 表列表（展开）nf-md-table
+          table = "▾ 󰓫 ",           -- 单个表（展开）nf-md-table
         },
         collapsed = {
-          db = "▸ ",
-          buffers = "▸ ",
-          saved_queries = "▸ ",
-          schemas = "▸ ",
-          schema = "▸ פּ",
-          tables = "▸ 藺",
-          table = "▸ ",
+          db = "▸ 󰆼 ",              -- 数据库（折叠）
+          buffers = "▸ 󰈔 ",         -- 缓冲区（折叠）
+          saved_queries = "▸ 󰆼 ",   -- 保存的查询（折叠）
+          schemas = "▸ 󰉋 ",         -- 架构列表（折叠）
+          schema = "▸ 󰉋 ",          -- 单个架构（折叠）
+          tables = "▸ 󰓫 ",          -- 表列表（折叠）
+          table = "▸ 󰓫 ",           -- 单个表（折叠）
         },
-        saved_query = "",
-        new_query = "璘",
-        tables = "離",
-        buffers = "﬘",
-        add_connection = "",
-        connection_ok = "✓",
-        connection_error = "✕",
+        saved_query = "󰈔 ",        -- 单个保存的查询 (nf-md-file_document)
+        new_query = "󰝒 ",          -- 新建查询 (nf-md-plus)
+        tables = "󰓫 ",             -- 表图标 (nf-md-table)
+        buffers = "󰉋 ",            -- 缓冲区图标 (nf-md-folder)
+        add_connection = "󰐕 ",     -- 添加连接 (nf-md-plus_circle_outline)
+        connection_ok = "✓",        -- 连接成功
+        connection_error = "✕",     -- 连接失败
       }
     end,
   },
@@ -119,6 +134,27 @@ return {
       spec = {
         { "<leader>D", group = " 数据库" },
       },
+    },
+  },
+
+  -- vim-dadbod-ui 快捷键映射
+  {
+    "kristijanhusak/vim-dadbod-ui",
+    keys = {
+      { "<leader>Du", "<cmd>DBUIToggle<cr>", desc = "切换数据库 UI" },
+      { "<leader>Df", "<cmd>DBUIFindBuffer<cr>", desc = "查找数据库缓冲区" },
+      { "<leader>Dr", "<cmd>DBUIRenameBuffer<cr>", desc = "重命名数据库缓冲区" },
+      { "<leader>Dq", "<cmd>DBUILastQueryInfo<cr>", desc = "最后查询信息" },
+    },
+  },
+
+  -- SQL 文件快捷键（在 SQL 缓冲区中有效）
+  {
+    "kristijanhusak/vim-dadbod-ui",
+    ft = { "sql", "mysql", "plsql" },
+    keys = {
+      { "<leader><leader>", "<Plug>(DBUI_ExecuteQuery)", desc = "执行 SQL 查询", mode = { "n", "v" } },
+      { "<leader>S", "<Plug>(DBUI_SaveQuery)", desc = "保存 SQL 查询", mode = "n" },
     },
   },
 }

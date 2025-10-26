@@ -171,3 +171,11 @@ source ~/.orbstack/shell/init2.fish 2>/dev/null || :
 # =========================================================
 # Kitty 通过 shell_integration enabled 自动注入
 # 不要在这里手动加载，会导致重复加载问题
+export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
+
+# =========================================================
+# 数据库客户端编码配置（修复中文乱码）
+# =========================================================
+set -gx PGCLIENTENCODING UTF8
+set -gx LC_ALL en_US.UTF-8
+set -gx LANG en_US.UTF-8
