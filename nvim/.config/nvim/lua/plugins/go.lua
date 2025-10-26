@@ -69,7 +69,7 @@ return {
         },
       },
       setup = {
-        gopls = function(_, opts)
+        gopls = function()
           -- 保存时自动组织 imports
           vim.api.nvim_create_autocmd("BufWritePre", {
             pattern = "*.go",
