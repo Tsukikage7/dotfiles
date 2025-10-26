@@ -147,12 +147,11 @@ set -gx PATH $SCALA_HOME/bin $PATH
 # Windsurf/Codeium
 set -gx PATH /Users/chongyan/.codeium/windsurf/bin $PATH
 
-# Kitty shell integration - 让新标签页继承当前目录
-if set -q KITTY_INSTALLATION_DIR
-    set --global KITTY_SHELL_INTEGRATION enabled
-    source "$KITTY_INSTALLATION_DIR/shell-integration/fish/vendor_conf.d/kitty-shell-integration.fish"
-    set --prepend fish_complete_path "$KITTY_INSTALLATION_DIR/shell-integration/fish/vendor_completions.d"
-end
+# =========================================================
+# Kitty Shell Integration | Kitty Shell 集成
+# =========================================================
+# 完全由 kitty.conf 的 shell_integration enabled 自动处理
+# 不要在这里手动加载或设置变量，会导致冲突
 
 # Kiro shell integration
 if test "$TERM_PROGRAM" = "kiro"
@@ -166,3 +165,9 @@ end
 # Added by OrbStack: command-line tools and integration
 # This won't be added again if you remove it.
 source ~/.orbstack/shell/init2.fish 2>/dev/null || :
+
+# =========================================================
+# Kitty Shell Integration | Kitty Shell 集成
+# =========================================================
+# Kitty 通过 shell_integration enabled 自动注入
+# 不要在这里手动加载，会导致重复加载问题
