@@ -137,6 +137,23 @@ return {
           "lualine_c_replace",
           "lualine_c_command",
           "lualine_c_inactive",
+
+          -- Markdown 渲染
+          "RenderMarkdownH1Bg",
+          "RenderMarkdownH2Bg",
+          "RenderMarkdownH3Bg",
+          "RenderMarkdownH4Bg",
+          "RenderMarkdownH5Bg",
+          "RenderMarkdownH6Bg",
+          "RenderMarkdownCode",
+          "RenderMarkdownCodeInline",
+          "RenderMarkdownBullet",
+          "RenderMarkdownQuote",
+          "RenderMarkdownDash",
+          "RenderMarkdownLink",
+          "RenderMarkdownSign",
+          "RenderMarkdownTableHead",
+          "RenderMarkdownTableRow",
         }
 
         -- 应用透明度

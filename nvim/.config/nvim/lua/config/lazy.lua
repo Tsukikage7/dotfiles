@@ -22,6 +22,7 @@ require("lazy").setup({
     -- 2. LazyVim extras（语言支持等）
     { import = "lazyvim.plugins.extras.lang.go" },
     { import = "lazyvim.plugins.extras.lang.sql" },
+    { import = "lazyvim.plugins.extras.lang.markdown" },
 
     -- 3. 自定义插件
     { import = "plugins" },
