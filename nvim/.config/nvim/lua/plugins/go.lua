@@ -2,12 +2,10 @@
 -- Go 开发环境配置
 -- 使用 LazyVim 官方 extras + 社区最佳实践
 -- 参考: https://www.lazyvim.org/extras/lang/go
+-- 注意: extras 已在 lazy.lua 中导入
 -- =========================================================
 
 return {
-  -- 导入 LazyVim 官方 Go extras（推荐方式）
-  { import = "lazyvim.plugins.extras.lang.go" },
-
   -- 额外的 Go 工具插件 (社区推荐)
   {
     "ray-x/go.nvim",

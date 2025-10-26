@@ -3,12 +3,10 @@
 -- 使用社区最推荐的 vim-dadbod + vim-dadbod-ui
 -- 支持: MySQL, PostgreSQL, SQLite, MongoDB, Redis 等
 -- 参考: https://www.lazyvim.org/extras/lang/sql
+-- 注意: extras 已在 lazy.lua 中导入
 -- =========================================================
 
 return {
-  -- 导入 LazyVim 官方 SQL extras
-  { import = "lazyvim.plugins.extras.lang.sql" },
-
   -- vim-dadbod-ui 配置优化
   {
     "kristijanhusak/vim-dadbod-ui",

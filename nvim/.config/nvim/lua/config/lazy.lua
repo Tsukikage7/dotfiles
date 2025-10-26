@@ -16,9 +16,14 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   spec = {
-    -- add LazyVim and import its plugins
+    -- 1. LazyVim 核心插件
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-    -- import/override with your plugins
+
+    -- 2. LazyVim extras（语言支持等）
+    { import = "lazyvim.plugins.extras.lang.go" },
+    { import = "lazyvim.plugins.extras.lang.sql" },
+
+    -- 3. 自定义插件
     { import = "plugins" },
   },
   defaults = {
