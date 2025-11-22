@@ -46,16 +46,19 @@
     # ===============================
     # ===== 现代化文件列表工具 ======
     # ===============================
-    alias ls='eza --icons'
-    alias ll='eza --icons --long --header'
-    alias la='eza --icons --long --header --all'
-    alias lg='eza --icons --long --header --all --git'
-    alias tree='eza --tree --icons'
-    
-    # 传统 ls 风格的别名
-    alias l='eza --icons'
-    alias lh='eza --icons --long --header --all'
-    alias lt='eza --tree --icons --level=2'
+    # 已由 fish-exa 插件接管,提供更丰富的别名
+    # 常用命令: l, ll, la, lg (git), lt (tree)
+    # 详细命令列表请查看: functions -a | grep '^l'
+    # alias ls='eza --icons'
+    # alias ll='eza --icons --long --header'
+    # alias la='eza --icons --long --header --all'
+    # alias lg='eza --icons --long --header --all --git'
+    # alias tree='eza --tree --icons'
+
+    # 传统 ls 风格的别名 (已由 fish-exa 插件提供)
+    # alias l='eza --icons'
+    # alias lh='eza --icons --long --header --all'
+    # alias lt='eza --tree --icons --level=2'
     
     # ===============================
     # ===== 现代化系统工具替换 ======
@@ -193,9 +196,12 @@
     
     # claude命令重命名为calude，跳过权限检查
     alias calude='claude --dangerously-skip-permissions'
+
+    # ===============================
+    # ======== 文件预览 =============
+    # ===============================
+    alias md='glow'
+    alias mdp='glow -p'
     
-    # 美化的别名显示
-    alias aliases='als'
-    alias alist='als'
     
 # end

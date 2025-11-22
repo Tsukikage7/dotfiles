@@ -185,6 +185,20 @@ function Cells:update_segment_colors(segment_id, color)
    return self
 end
 
+---Update the underline attribute of a segment
+---@param segment_id string|number the segment id
+---@param underline_type 'None'|'Single'|'Double'|'Curly' the underline type
+function Cells:update_segment_underline(segment_id, underline_type)
+   self:_check_segment(segment_id)
+
+   local has_bg = self.segments[segment_id].has_bg
+   local has_fg = self.segments[segment_id].has_fg
+   local attr_idx = (has_bg and 1 or 0) + (has_fg and 1 or 0) + 1
+
+   self.segments[segment_id].items[attr_idx] = attr.underline(underline_type)
+   return self
+end
+
 ---Convert specific segments into a format that `wezterm.format` can use
 ---Segments will rendered in the order of the `ids` table
 ---@param ids table<string|number> the segment ids

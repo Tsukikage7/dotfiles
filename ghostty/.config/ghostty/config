@@ -1,0 +1,101 @@
+# Ghostty Terminal Emulator Configuration
+# https://ghostty.org/docs/config
+
+# ============================================================================
+# Font Configuration
+# ============================================================================
+font-family = LigaMonaco Nerd Font
+font-size = 16
+
+# Font features
+font-feature = -calt
+font-feature = -liga
+
+# ============================================================================
+# Theme and Colors
+# ============================================================================
+# You can use built-in themes or customize colors
+# List available themes: ghostty +list-themes
+theme = Catppuccin Mocha
+
+# Custom color scheme (uncomment to use)
+# background = #1e1e2e
+# foreground = #cdd6f4
+# cursor-color = #f5e0dc
+# selection-background = #585b70
+# selection-foreground = #cdd6f4
+
+# ============================================================================
+# Window Configuration
+# ============================================================================
+window-decoration = true
+window-padding-x = 10
+window-padding-y = 10
+
+# Window theme (auto, light, dark, ghostty)
+window-theme = auto
+
+# Background opacity (0.0 - 1.0)
+background-opacity = 1.0
+
+# ============================================================================
+# Cursor Configuration
+# ============================================================================
+cursor-style = block
+cursor-style-blink = true
+
+# ============================================================================
+# Shell Configuration
+# ============================================================================
+# Use Fish shell (uncomment if needed)
+# shell-integration = fish
+# shell-integration-features = cursor,sudo,title
+
+# ============================================================================
+# Mouse Configuration
+# ============================================================================
+mouse-hide-while-typing = true
+
+# Copy on select
+copy-on-select = true
+
+# ============================================================================
+# Keybindings
+# ============================================================================
+# Use macOS-style keybindings
+keybind = cmd+c=copy_to_clipboard
+keybind = cmd+v=paste_from_clipboard
+keybind = cmd+t=new_tab
+keybind = cmd+w=close_surface
+keybind = cmd+n=new_window
+keybind = cmd+q=quit
+
+# Tab navigation
+keybind = cmd+1=goto_tab:1
+keybind = cmd+2=goto_tab:2
+keybind = cmd+3=goto_tab:3
+keybind = cmd+4=goto_tab:4
+keybind = cmd+5=goto_tab:5
+keybind = cmd+6=goto_tab:6
+keybind = cmd+7=goto_tab:7
+keybind = cmd+8=goto_tab:8
+keybind = cmd+9=goto_tab:9
+
+# Split windows
+keybind = cmd+d=new_split:right
+keybind = cmd+shift+d=new_split:down
+
+# ============================================================================
+# Clipboard Configuration
+# ============================================================================
+clipboard-read = allow
+clipboard-write = allow
+
+# ============================================================================
+# Miscellaneous
+# ============================================================================
+# Confirm before closing
+confirm-close-surface = false
+
+# Window step resize (pixel increments)
+window-step-resize = true

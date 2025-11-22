@@ -105,6 +105,30 @@ cd ~/dotfiles
 stow wezterm
 ```
 
+### Ghostty
+
+`Ghostty` 官网 🔗: [ghostty.org](https://ghostty.org/)
+
+现代化的 GPU 加速终端模拟器，由 Zig 编写，性能优异。
+
+**安装:**
+```bash
+brew install --cask ghostty
+```
+
+**配置:**
+```bash
+cd ~/dotfiles
+stow ghostty
+```
+
+**特性:**
+- 原生 GPU 加速渲染
+- 极低的输入延迟
+- 支持 Nerd Font 图标
+- 现代化的配置系统
+- macOS 原生体验
+
 ### Kitty
 
 **安装:**
@@ -269,7 +293,7 @@ sudo xattr -d com.apple.quarantine "/Applications/PicGo.app"
 
 1. **基础环境** - Homebrew + Git
 2. **Shell 环境** - Fish Shell + Starship
-3. **终端模拟器** - Kitty 或 WezTerm
+3. **终端模拟器** - Ghostty、Kitty 或 WezTerm (任选其一)
 4. **编辑器** - Neovim
 5. **终端工具** - eza, bat, bottom 等
 6. **终端复用器** - Tmux (可选)
@@ -289,6 +313,7 @@ brew install --cask font-hack-nerd-font
 ```
 
 **配置终端字体：**
+- Ghostty: 编辑 `~/.config/ghostty/config`
 - Kitty: 编辑 `~/.config/kitty/kitty.conf`
 - WezTerm: 编辑 `~/.config/wezterm/wezterm.lua`
 - 系统终端: 偏好设置 → 字体

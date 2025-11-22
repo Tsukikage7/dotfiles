@@ -7,6 +7,9 @@ return {
 
    scrollback_lines = 20000,
 
+   -- 选中文本的单词边界
+   selection_word_boundary = ' \t\n{}[]()"\':;,│',
+
    hyperlink_rules = {
       -- Matches: a URL in parens: (URL)
       {
@@ -41,6 +44,39 @@ return {
       {
          regex = '\\b\\w+@[\\w-]+(\\.[\\w-]+)+\\b',
          format = 'mailto:$0',
+      },
+
+      -- 文件路径：绝对路径 (以 / 或 ~ 开头)
+      {
+         regex = '\\b(/[\\w\\-\\./_]+)',
+         format = 'file://$1',
+         highlight = 1,
+      },
+      {
+         regex = '\\b(~[\\w\\-\\./_]+)',
+         format = 'file://$1',
+         highlight = 1,
+      },
+
+      -- Git commit hash (7或40位十六进制)
+      {
+         regex = '\\b[a-f0-9]{7,40}\\b',
+         format = '$0',
+         highlight = 1,
+      },
+
+      -- IP 地址
+      {
+         regex = '\\b\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\b',
+         format = '$0',
+         highlight = 1,
+      },
+
+      -- Docker 镜像 (例如: nginx:latest, user/repo:tag)
+      {
+         regex = '\\b[\\w-]+/[\\w-]+:[\\w\\.-]+\\b',
+         format = '$0',
+         highlight = 1,
       },
    },
 }

@@ -4,14 +4,14 @@ local Cells = require('utils.cells')
 local nf = wezterm.nerdfonts
 local attr = Cells.attr
 
-local GLYPH_SCIRCLE_LEFT = nf.ple_left_half_circle_thick --[[  ]]
-local GLYPH_SCIRCLE_RIGHT = nf.ple_right_half_circle_thick --[[  ]]
-local GLYPH_CIRCLE = nf.fa_circle --[[  ]]
-local GLYPH_ADMIN = nf.md_shield_half_full --[[ 󰞀 ]]
-local GLYPH_LINUX = nf.cod_terminal_linux --[[  ]]
-local GLYPH_DEBUG = nf.fa_bug --[[  ]]
--- local GLYPH_SEARCH = nf.fa_search --[[  ]]
-local GLYPH_SEARCH = '🔭'
+-- 无分隔符样式
+local GLYPH_SCIRCLE_LEFT = '' -- 无左分隔符
+local GLYPH_SCIRCLE_RIGHT = '' -- 无右分隔符
+local GLYPH_CIRCLE = '●' -- 简单圆点
+local GLYPH_ADMIN = '⚡' -- 简化管理员标记
+local GLYPH_LINUX = '🐧' -- 简化 Linux 标记
+local GLYPH_DEBUG = '🐛' -- 简化调试标记
+local GLYPH_SEARCH = '🔍' -- 简化搜索标记
 
 local GLYPH_UNSEEN_OUTPUT = {
    [1] = nf.md_numeric_1_box_multiple, --[[ 󰼏 ]]
@@ -27,19 +27,19 @@ local GLYPH_UNSEEN_OUTPUT = {
 }
 
 local TITLE_INSET = {
-   DEFAULT = 6,
-   ICON = 8,
+   DEFAULT = 0,
+   ICON = 1,
 }
 
 local M = {}
 
 local RENDER_VARIANTS = {
-   { 'scircle_left', 'title', 'padding', 'scircle_right' },
-   { 'scircle_left', 'title', 'unseen_output', 'padding', 'scircle_right' },
-   { 'scircle_left', 'admin', 'title', 'padding', 'scircle_right' },
-   { 'scircle_left', 'admin', 'title', 'unseen_output', 'padding', 'scircle_right' },
-   { 'scircle_left', 'wsl', 'title', 'padding', 'scircle_right' },
-   { 'scircle_left', 'wsl', 'title', 'unseen_output', 'padding', 'scircle_right' },
+   { 'title', 'scircle_right' },
+   { 'title', 'unseen_output', 'scircle_right' },
+   { 'admin', 'title', 'scircle_right' },
+   { 'admin', 'title', 'unseen_output', 'scircle_right' },
+   { 'wsl', 'title', 'scircle_right' },
+   { 'wsl', 'title', 'unseen_output', 'scircle_right' },
 }
 
 local SETUP_OPTS = {
@@ -49,18 +49,19 @@ local SETUP_OPTS = {
 
 ---@type table<string, Cells.SegmentColors>
 -- stylua: ignore
+-- Everforest 无分隔符配色 (用背景色区分)
 local colors = {
-   text_default          = { bg = '#45475A', fg = '#1C1B19' },
-   text_hover            = { bg = '#587D8C', fg = '#1C1B19' },
-   text_active           = { bg = '#7FB4CA', fg = '#11111B' },
+   text_default          = { bg = '#2d353b', fg = '#7a8478' },
+   text_hover            = { bg = '#343f44', fg = '#a7c080' },
+   text_active           = { bg = '#3d484d', fg = '#d3c6aa' },
 
-   unseen_output_default = { bg = '#45475A', fg = '#FFA066' },
-   unseen_output_hover   = { bg = '#587D8C', fg = '#FFA066' },
-   unseen_output_active  = { bg = '#7FB4CA', fg = '#FFA066' },
+   unseen_output_default = { bg = '#2d353b', fg = '#e67e80' },
+   unseen_output_hover   = { bg = '#343f44', fg = '#e67e80' },
+   unseen_output_active  = { bg = '#3d484d', fg = '#e67e80' },
 
-   scircle_default       = { bg = 'rgba(0, 0, 0, 0.4)', fg = '#45475A' },
-   scircle_hover         = { bg = 'rgba(0, 0, 0, 0.4)', fg = '#587D8C' },
-   scircle_active        = { bg = 'rgba(0, 0, 0, 0.4)', fg = '#7FB4CA' },
+   scircle_default       = { bg = '#2d353b', fg = '#2d353b' },
+   scircle_hover         = { bg = '#343f44', fg = '#343f44' },
+   scircle_active        = { bg = '#3d484d', fg = '#3d484d' },
 }
 
 ---@param proc string
@@ -73,32 +74,41 @@ end
 ---@param base_title string
 ---@param max_width number
 ---@param inset number
-local function create_title(process_name, base_title, max_width, inset)
+---@param is_locked? boolean
+local function create_title(process_name, base_title, max_width, inset, is_locked)
    local title
 
-   if process_name:len() > 0 then
-      title = process_name .. ' ~ ' .. base_title
-   else
+   -- 如果是锁定的标题,直接使用,不做任何处理
+   if is_locked then
       title = base_title
-   end
-
-   if base_title == 'Debug' then
+   -- 特殊标题优先级最高
+   elseif base_title == 'Debug' then
       title = GLYPH_DEBUG .. ' DEBUG'
       inset = inset - 2
-   end
-
-   if base_title:match('^InputSelector:') ~= nil then
+   elseif base_title:match('^InputSelector:') ~= nil then
       title = base_title:gsub('InputSelector:', GLYPH_SEARCH)
       inset = inset - 2
+   -- 然后是进程名
+   elseif process_name:len() > 0 then
+      title = process_name
+   -- 最后才是 base_title
+   else
+      title = base_title
    end
 
    if title:len() > max_width - inset then
       local diff = title:len() - max_width + inset
       title = title:sub(1, title:len() - diff)
    else
-      local padding = max_width - title:len() - inset
-      title = title .. string.rep(' ', padding)
+      -- 居中对齐
+      local total_padding = max_width - title:len() - inset
+      local left_padding = math.floor(total_padding / 2)
+      local right_padding = total_padding - left_padding
+      title = string.rep(' ', left_padding) .. title .. string.rep(' ', right_padding)
    end
+
+   -- 添加垂直填充以增加标签栏高度
+   title = ' ' .. title .. ' '
 
    return title
 end
@@ -173,21 +183,21 @@ function Tab:set_info(active_pane, panes, is_active, max_width)
    end
 
    if self.title_locked then
-      self.title = create_title('', self.locked_title, max_width, inset)
+      self.title = create_title('', self.locked_title, max_width, inset, true)
       return
    end
-   self.title = create_title(process_name, active_pane.title, max_width, inset)
+   self.title = create_title(process_name, active_pane.title, max_width, inset, false)
 end
 
 function Tab:create_cells()
    self.cells
       :add_segment('scircle_left', GLYPH_SCIRCLE_LEFT)
-      :add_segment('admin', ' ' .. GLYPH_ADMIN)
-      :add_segment('wsl', ' ' .. GLYPH_LINUX)
-      :add_segment('title', ' ', nil, attr(attr.intensity('Bold')))
+      :add_segment('admin', GLYPH_ADMIN)
+      :add_segment('wsl', GLYPH_LINUX)
+      :add_segment('title', '')
       :add_segment('unseen_output', ' ' .. GLYPH_CIRCLE)
-      :add_segment('padding', ' ')
-      :add_segment('scircle_right', GLYPH_SCIRCLE_RIGHT)
+      :add_segment('padding', '')
+      :add_segment('scircle_right', ' ' .. GLYPH_SCIRCLE_RIGHT)
 end
 
 ---@param title string
@@ -206,7 +216,7 @@ function Tab:update_cells(is_active, hover)
       tab_state = 'hover'
    end
 
-   self.cells:update_segment_text('title', ' ' .. self.title)
+   self.cells:update_segment_text('title', self.title)
 
    if SETUP_OPTS.numbered_unseen_glyphs and self.unseen_output then
       self.cells:update_segment_text(
@@ -273,10 +283,12 @@ M.setup = function(opts)
                { Text = 'enter name for new tab' },
             },
             action = wezterm.action_callback(function(_window, _pane, line)
-               if line ~= nil then
+               if line ~= nil and line ~= '' then
                   local tab = window:active_tab()
                   local id = tab:tab_id()
                   tab_list[id]:update_and_lock_title(line)
+                  -- 强制刷新标签栏以显示新标题
+                  window:set_right_status('')
                end
             end),
          }),
@@ -308,6 +320,7 @@ M.setup = function(opts)
          tab_list[tab.tab_id] = Tab:new()
          tab_list[tab.tab_id]:set_info(tab.active_pane, tab.panes, tab.is_active, max_width)
          tab_list[tab.tab_id]:create_cells()
+         tab_list[tab.tab_id]:update_cells(tab.is_active, hover)  -- 添加这行!
          return tab_list[tab.tab_id]:render()
       end
 

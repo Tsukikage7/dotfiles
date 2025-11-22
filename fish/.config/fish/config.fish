@@ -9,6 +9,14 @@ if command -v starship >/dev/null 2>&1
     source (/opt/homebrew/bin/starship init fish --print-full-init | psub)
 end
 
+# Initialize zoxide (smarter cd command)
+# 让 cd 命令使用 zoxide 的智能跳转
+if command -v zoxide >/dev/null 2>&1
+    # 使用 zoxide 初始化,并让它接管 cd 命令
+    zoxide init fish --cmd cd | source
+end
+
+
 # Language environment
 set -gx LANG en_US.UTF-8
 
@@ -36,7 +44,7 @@ set -gx SIMPLE_LANG zh
 set -gx NEXTTRACE_POWPROVIDER sakura
 
 # Java Environment
-set -gx JAVA_HOME /Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home
+set -gx JAVA_HOME /Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
 set -gx CLASS_PATH $JAVA_HOME/lib
 set -gx PATH $JAVA_HOME/bin $PATH
 
