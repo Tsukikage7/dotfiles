@@ -46,6 +46,33 @@ exec fish
 
 本项目使用 [GNU Stow](https://github.com/aspiers/stow) 来管理配置文件的符号链接。
 
+### Stow 工作原理
+
+Stow 通过创建符号链接将 dotfiles 仓库中的配置文件链接到系统对应位置。
+
+**示例：** 运行 `stow fish` 后：
+```
+~/dotfiles/fish/.config/fish/config.fish  →  ~/.config/fish/config.fish (符号链接)
+```
+
+### 可用的配置包
+
+| 配置包 | 说明 | 部署命令 |
+|--------|------|----------|
+| **fish** | Fish Shell 配置 | `stow fish` |
+| **starship** | Starship 提示符配置 | `stow starship` |
+| **ghostty** | Ghostty 终端配置 | `stow ghostty` |
+| **kitty** | Kitty 终端配置 | `stow kitty` |
+| **wezterm** | WezTerm 终端配置 | `stow wezterm` |
+| **nvim** | Neovim 编辑器配置 | `stow nvim` |
+| **vscode** | VSCode 编辑器配置 | `stow vscode` |
+| **tmux** | Tmux 终端复用器配置 | `stow tmux` |
+| **bat** | Bat 工具配置 | `stow bat` |
+| **bottom** | Bottom 系统监控配置 | `stow bottom` |
+| **fastfetch** | Fastfetch 系统信息配置 | `stow fastfetch` |
+| **tssh** | TSSH 配置 | `stow tssh` |
+| **pip** | Python pip 配置 | `stow pip` |
+
 ### Stow 使用方法
 
 ```bash
@@ -53,16 +80,56 @@ exec fish
 cd ~/dotfiles
 
 # 部署单个配置
-stow <配置名称>
+stow fish
 
 # 部署多个配置
-stow fish starship kitty
+stow fish starship ghostty vscode
+
+# 部署所有配置（谨慎使用）
+stow */
 
 # 取消部署配置
-stow -D <配置名称>
+stow -D fish
 
-# 重新部署配置（更新后使用）
-stow -R <配置名称>
+# 重新部署配置（配置更新后使用）
+stow -R fish
+
+# 查看将要执行的操作（不实际执行）
+stow -n fish
+
+# 详细输出模式（查看详细操作过程）
+stow -v fish
+
+# 非常详细的输出
+stow -vv fish
+```
+
+### 常见使用场景
+
+**首次设置：**
+```bash
+cd ~/dotfiles
+stow fish starship ghostty vscode
+```
+
+**更新配置后：**
+```bash
+cd ~/dotfiles
+stow -R fish  # 重新部署 fish 配置
+```
+
+**切换终端：**
+```bash
+# 取消 Kitty，启用 Ghostty
+stow -D kitty
+stow ghostty
+```
+
+**检查配置：**
+```bash
+# 查看配置链接是否正确
+ls -la ~/.config/fish
+ls -la ~/.config/ghostty
 ```
 
 ## Shell 配置
@@ -182,6 +249,30 @@ brew install neovim
 cd ~/dotfiles
 stow nvim
 ```
+
+### Visual Studio Code
+
+`VSCode` 官网 🔗: [code.visualstudio.com](https://code.visualstudio.com/)
+
+现代化的代码编辑器，支持丰富的扩展生态。
+
+**安装:**
+```bash
+brew install --cask visual-studio-code
+```
+
+**配置:**
+```bash
+cd ~/dotfiles
+stow vscode
+```
+
+**特性:**
+- LigaMonaco Nerd Font 字体
+- 自动格式化和保存
+- Fish Shell 集成
+- Git 智能提交
+- 多语言代码片段
 
 ## 终端工具
 
@@ -383,17 +474,63 @@ starship init fish | source
 - 确保安装了 Nerd Font
 - 在终端中设置正确的字体
 
-### 符号链接问题
+### Stow 符号链接问题
 
 **问题：** 配置文件未生效
 ```bash
 # 检查符号链接状态
 ls -la ~/.config/fish
+ls -la ~/.config/ghostty
 ls -la ~/.config/starship.toml
 
 # 重新部署
 cd ~/dotfiles
-stow -R fish starship
+stow -R fish starship ghostty
+```
+
+**问题：** Stow 报错 "existing target is not owned by stow"
+```bash
+# 原因：目标位置已存在非符号链接的文件/目录
+# 解决方案1：备份并删除现有文件
+mv ~/.config/fish ~/.config/fish.backup
+stow fish
+
+# 解决方案2：强制重新部署（会删除现有文件）
+stow --adopt fish  # 谨慎使用
+```
+
+**问题：** Stow 报错 "conflicts"
+```bash
+# 查看详细冲突信息
+stow -v fish
+
+# 手动解决冲突：删除冲突的文件或目录
+rm -rf ~/.config/fish/conflicting-file
+
+# 然后重新部署
+stow fish
+```
+
+**问题：** 符号链接指向错误的位置
+```bash
+# 取消部署
+stow -D fish
+
+# 删除错误的符号链接
+rm ~/.config/fish
+
+# 重新部署
+stow fish
+```
+
+**问题：** VSCode 配置未生效
+```bash
+# 检查 VSCode 配置符号链接
+ls -la ~/Library/Application\ Support/Code/User/
+
+# 如果没有符号链接，重新部署
+cd ~/dotfiles
+stow -R vscode
 ```
 
 ### 权限问题
@@ -402,6 +539,29 @@ stow -R fish starship
 # 修复配置文件权限
 chmod 644 ~/.config/fish/config.fish
 chown -R $(whoami) ~/.config/fish
+
+# 修复整个 dotfiles 目录权限
+cd ~/dotfiles
+chmod -R u+rw .
+```
+
+### Stow 调试技巧
+
+```bash
+# 模拟运行（不实际执行，查看会发生什么）
+stow -n fish
+
+# 详细输出（查看操作过程）
+stow -v fish
+
+# 非常详细的输出（调试用）
+stow -vv fish
+
+# 检查 stow 版本
+stow --version
+
+# 查看 stow 帮助
+stow --help
 ```
 
 ## 🛠 高级配置
@@ -432,12 +592,56 @@ fisher install PatrickF1/fzf.fish
 fisher install franciscolourenco/done
 ```
 
+## 📝 快速参考
+
+### Stow 常用命令速查
+
+| 命令 | 说明 |
+|------|------|
+| `stow fish` | 部署 Fish 配置 |
+| `stow -D fish` | 取消部署 Fish 配置 |
+| `stow -R fish` | 重新部署 Fish 配置 |
+| `stow -n fish` | 模拟运行（不实际执行） |
+| `stow -v fish` | 详细输出 |
+| `stow fish starship vscode` | 同时部署多个配置 |
+| `stow */` | 部署所有配置 |
+
+### 配置文件位置速查
+
+| 工具 | 配置文件位置 |
+|------|-------------|
+| Fish | `~/.config/fish/config.fish` |
+| Starship | `~/.config/starship.toml` |
+| Ghostty | `~/.config/ghostty/config` |
+| Kitty | `~/.config/kitty/kitty.conf` |
+| WezTerm | `~/.config/wezterm/wezterm.lua` |
+| Neovim | `~/.config/nvim/init.lua` |
+| VSCode | `~/Library/Application Support/Code/User/settings.json` |
+| Tmux | `~/.tmux.conf` |
+| Bat | `~/.config/bat/config` |
+
+### 字体配置速查
+
+所有工具当前统一使用：**LigaMonaco Nerd Font**
+
+| 工具 | 字号 |
+|------|------|
+| Ghostty | 16pt |
+| Kitty | 16pt |
+| WezTerm | 16pt |
+| VSCode 编辑器 | 14pt |
+| VSCode 终端 | 14pt |
+
 ## 📚 更多资源
 
 - [Fish Shell 文档](https://fishshell.com/docs/current/)
 - [Starship 配置指南](https://starship.rs/config/)
 - [GNU Stow 手册](https://www.gnu.org/software/stow/manual/stow.html)
 - [Nerd Fonts](https://nerdfonts.com/)
+- [Ghostty 文档](https://ghostty.org/docs)
+- [Kitty 文档](https://sw.kovidgoyal.net/kitty/)
+- [WezTerm 文档](https://wezfurlong.org/wezterm/)
+- [VSCode 文档](https://code.visualstudio.com/docs)
 
 ## 🤝 贡献
 
