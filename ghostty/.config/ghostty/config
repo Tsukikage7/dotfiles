@@ -14,16 +14,7 @@ font-feature = -liga
 # ============================================================================
 # Theme and Colors
 # ============================================================================
-# You can use built-in themes or customize colors
-# List available themes: ghostty +list-themes
-theme = Catppuccin Mocha
-
-# Custom color scheme (uncomment to use)
-# background = #1e1e2e
-# foreground = #cdd6f4
-# cursor-color = #f5e0dc
-# selection-background = #585b70
-# selection-foreground = #cdd6f4
+theme = Everforest Dark Hard
 
 # ============================================================================
 # Window Configuration
@@ -36,13 +27,20 @@ window-padding-y = 10
 window-theme = auto
 
 # Background opacity (0.0 - 1.0)
-background-opacity = 1.0
+background-opacity = 0.8
 
 # ============================================================================
 # Cursor Configuration
 # ============================================================================
 cursor-style = block
 cursor-style-blink = true
+
+# 注意: Ghostty 目前不支持 cursor_trail (光标拖影) 效果
+# 可以通过以下配置优化光标体验:
+# - cursor-style: 光标样式 (block, bar, underline)
+# - cursor-style-blink: 启用光标闪烁
+#
+# 如需拖影效果,建议使用 Kitty (cursor_trail) 或 WezTerm (animation_fps)
 
 # ============================================================================
 # Shell Configuration
@@ -58,6 +56,22 @@ mouse-hide-while-typing = true
 
 # Copy on select
 copy-on-select = true
+
+# ============================================================================
+# Tab Bar Configuration
+# ============================================================================
+# 新标签创建位置 (current=当前标签后, end=列表末尾)
+window-new-tab-position = end
+
+# 注意: Ghostty 在 macOS 上使用系统原生标签栏
+# 以下配置主要影响标签栏行为:
+# - window-decoration = true  → 使用 macOS 原生标签栏
+# - window-decoration = false → 禁用原生标签栏
+#
+# Linux 上可使用 window-show-tab-bar 配置:
+# - always: 始终显示
+# - auto:   自动显示/隐藏 (2个或以上时显示)
+# - never:  隐藏标签栏
 
 # ============================================================================
 # Keybindings
@@ -80,6 +94,10 @@ keybind = cmd+6=goto_tab:6
 keybind = cmd+7=goto_tab:7
 keybind = cmd+8=goto_tab:8
 keybind = cmd+9=goto_tab:9
+
+# Tab switching (alternative keybindings)
+keybind = cmd+shift+[=previous_tab
+keybind = cmd+shift+]=next_tab
 
 # Split windows
 keybind = cmd+d=new_split:right

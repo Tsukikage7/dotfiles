@@ -34,7 +34,11 @@ GpuAdapters.AVAILABLE_BACKENDS = {
 }
 
 ---@type WeztermGPUAdapter[]
-GpuAdapters.ENUMERATED_GPUS = wezterm.gui.enumerate_gpus()
+-- 使用 pcall 安全枚举 GPU，避免非 GUI 环境报错
+local ok, gpus = pcall(function()
+   return wezterm.gui and wezterm.gui.enumerate_gpus() or {}
+end)
+GpuAdapters.ENUMERATED_GPUS = ok and gpus or {}
 
 ---@return GpuAdapters
 ---@private

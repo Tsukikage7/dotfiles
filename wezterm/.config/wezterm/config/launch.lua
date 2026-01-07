@@ -15,11 +15,13 @@ if platform.is_win then
       { label = 'Nushell', args = { 'nu' } },
    }
 elseif platform.is_mac then
+   -- 默认启动 Fish（Fish 配置会自动启动 Zellij）
    options.default_prog = { '/opt/homebrew/bin/fish', '-l' }
    options.launch_menu = {
+      { label = 'Fish (默认)', args = { '/opt/homebrew/bin/fish', '-l' } },
+      { label = 'Zellij 新会话', args = { '/opt/homebrew/bin/zellij' } },
+      { label = 'Zellij attach', args = { '/opt/homebrew/bin/zellij', 'attach', '-c' } },
       { label = 'Bash', args = { 'bash', '-l' } },
-      { label = 'Fish', args = { '/opt/homebrew/bin/fish', '-l' } },
-      { label = 'Nushell', args = { '/opt/homebrew/bin/nu', '-l' } },
       { label = 'Zsh', args = { 'zsh', '-l' } },
    }
 

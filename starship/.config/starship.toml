@@ -1,5 +1,6 @@
 # Starship 配置文件
-# 精简实用的单一主题配置
+# Everforest Dark 主题配色
+# 色板: green=#a7c080 blue=#7fbbb3 yellow=#dbbc7f red=#e67e80 purple=#d699b6 cyan=#83c092 orange=#e69875
 
 # 整体格式
 format = """
@@ -23,21 +24,21 @@ right_format = """$time"""
 
 # 字符提示符
 [character]
-success_symbol = "[➜](bold green)"
-error_symbol = "[➜](bold red)"
-vicmd_symbol = "[❮](bold yellow)"
+success_symbol = "[➜](#a7c080)"
+error_symbol = "[➜](#e67e80)"
+vicmd_symbol = "[❮](#dbbc7f)"
 
 # 用户名 - 仅在必要时显示，使用 Nerd Font 图标
 [username]
-style_user = "bold blue"
-style_root = "bold red"
-format = "[ $user]($style)[@](bold white)"
+style_user = "bold #7fbbb3"
+style_root = "bold #e67e80"
+format = "[ $user]($style)[@](#d3c6aa)"
 show_always = false
 
 # 主机名 - 仅 SSH 时显示
 [hostname]
 ssh_only = true
-format = "[$hostname](bold purple) "
+format = "[$hostname](#d699b6) "
 disabled = false
 
 # 目录显示 - 使用 Nerd Font 图标
@@ -45,23 +46,23 @@ disabled = false
 truncation_length = 5
 truncation_symbol = "…/"
 format = "[ $path]($style)[$read_only]($read_only_style) "
-style = "bold cyan"
+style = "bold #83c092"
 read_only = ""
-read_only_style = "red"
+read_only_style = "#e67e80"
 home_symbol = ""
 
 # Git 分支 - 使用 Nerd Font 图标
 [git_branch]
 format = "on [$symbol$branch]($style) "
 symbol = ""
-style = "bold purple"
+style = "bold #d699b6"
 truncation_length = 20
 truncation_symbol = "…"
 
 # Git 状态 - 使用 Nerd Font 图标
 [git_status]
 format = '([\[$all_status$ahead_behind\]]($style) )'
-style = "bold red"
+style = "bold #e67e80"
 conflicted = ""
 up_to_date = ""
 untracked = ""
@@ -70,7 +71,7 @@ diverged = "⇕⇡${ahead_count}⇣${behind_count}"
 behind = "⇣${count}"
 stashed = ""
 modified = ""
-staged = "[ ${count}](green)"
+staged = "[ ${count}](#a7c080)"
 renamed = ""
 deleted = ""
 
@@ -78,39 +79,39 @@ deleted = ""
 
 # Node.js - 使用 Nerd Font 图标
 [nodejs]
-format = "[󰎙 $version](bold green) "
+format = "[󰎙 $version](#a7c080) "
 detect_extensions = ["js", "mjs", "cjs", "ts", "tsx"]
 detect_files = ["package.json", ".node-version"]
 detect_folders = ["node_modules"]
 
 # Python - 使用 Nerd Font 图标
 [python]
-format = '[ $version( $virtualenv)](bold yellow) '
+format = '[ $version( $virtualenv)](#dbbc7f) '
 detect_extensions = ["py"]
 detect_files = [".python-version", "Pipfile", "requirements.txt", "pyproject.toml", "tox.ini"]
 
 # Rust - 使用 Nerd Font 图标
 [rust]
-format = "[󱘗 $version](bold red) "
+format = "[󱘗 $version](#e67e80) "
 detect_extensions = ["rs"]
 detect_files = ["Cargo.toml"]
 
 # Go - 使用 Nerd Font 图标
 [golang]
-format = "[󰟓 $version](bold cyan) "
+format = "[󰟓 $version](#83c092) "
 detect_extensions = ["go"]
 detect_files = ["go.mod", "go.sum", "glide.yaml", "Gopkg.yml", "Gopkg.lock", ".go-version"]
 detect_folders = ["Godeps"]
 
 # Java - 使用 Nerd Font 图标
 [java]
-format = "[ $version](bold red) "
+format = "[ $version](#e69875) "
 detect_extensions = ["java", "class", "gradle", "jar", "cljs", "cljc"]
 detect_files = ["pom.xml", "build.gradle.kts", "build.sbt", ".java-version", "deps.edn", "project.clj", "build.boot"]
 
 # Docker - 使用 Nerd Font 图标
 [docker_context]
-format = "[ $context](bold blue) "
+format = "[ $context](#7fbbb3) "
 only_with_files = true
 detect_files = ["docker-compose.yml", "docker-compose.yaml", "Dockerfile"]
 disabled = false
@@ -118,15 +119,15 @@ disabled = false
 # 命令执行时间
 [cmd_duration]
 min_time = 2000
-format = "took [$duration](bold yellow) "
+format = "took [$duration](#dbbc7f) "
 show_milliseconds = false
 
 # 时间显示 (右侧)
 [time]
 disabled = false
-format = '[$time](bold bright-black)'
+format = '[$time](#7a8478)'
 time_format = "%H:%M"
-style = "bold bright-black"
+style = "#7a8478"
 utc_time_offset = "local"
 
 # 换行符

@@ -168,6 +168,8 @@ end
 
 if status is-interactive
     # Commands to run in interactive sessions can go here
+
+    # Zellij 不自动启动，需要时手动运行 `z` 或 `zellij`
 end
 
 # Added by OrbStack: command-line tools and integration
@@ -187,3 +189,9 @@ export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
 set -gx PGCLIENTENCODING UTF8
 set -gx LC_ALL en_US.UTF-8
 set -gx LANG en_US.UTF-8
+
+# Setting PATH for Python 3.8
+# The original version is saved in /Users/tsukikage/.config/fish/config.fish.pysave
+set -x PATH "/Library/Frameworks/Python.framework/Versions/3.8/bin" "$PATH"
+# Zellij 自动接受插件权限
+set -gx ZELLIJ_AUTO_ACCEPT_PLUGIN_PERMISSIONS true

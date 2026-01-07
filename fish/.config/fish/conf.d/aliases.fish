@@ -24,10 +24,10 @@
     alias rsync='rsyncy'
     
     # ===============================
-    # ========= Tmux 管理 ===========
+    # ======== Zellij 管理 ==========
     # ===============================
-    alias update_tmux='tmux source ~/.tmux.conf'
-    alias tmux_reload='tmux source ~/.tmux.conf'
+    alias update_zellij='zellij setup --check'
+    alias zellij_reload='zellij action dump-layout'
     
     # ===============================
     # ======== Python 开发 =========
@@ -194,7 +194,8 @@
     # history命令重命名为h，快速查看命令历史
     alias h='history'
     
-    # claude命令重命名为calude，跳过权限检查
+    # Claude Code 别名 - 跳过权限检查
+    alias cc='claude --dangerously-skip-permissions'
     alias calude='claude --dangerously-skip-permissions'
 
     # ===============================

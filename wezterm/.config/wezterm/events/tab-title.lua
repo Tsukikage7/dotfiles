@@ -47,22 +47,9 @@ local SETUP_OPTS = {
    hide_active_tab_unseen = true,
 }
 
----@type table<string, Cells.SegmentColors>
--- stylua: ignore
--- Everforest 无分隔符配色 (用背景色区分)
-local colors = {
-   text_default          = { bg = '#2d353b', fg = '#7a8478' },
-   text_hover            = { bg = '#343f44', fg = '#a7c080' },
-   text_active           = { bg = '#3d484d', fg = '#d3c6aa' },
-
-   unseen_output_default = { bg = '#2d353b', fg = '#e67e80' },
-   unseen_output_hover   = { bg = '#343f44', fg = '#e67e80' },
-   unseen_output_active  = { bg = '#3d484d', fg = '#e67e80' },
-
-   scircle_default       = { bg = '#2d353b', fg = '#2d353b' },
-   scircle_hover         = { bg = '#343f44', fg = '#343f44' },
-   scircle_active        = { bg = '#3d484d', fg = '#3d484d' },
-}
+-- 缓存颜色（动态从主题获取）
+local cached_colors = nil
+local cached_scheme_name = nil
 
 ---@param proc string
 local function clean_process_name(proc)
@@ -208,7 +195,8 @@ end
 
 ---@param is_active boolean
 ---@param hover boolean
-function Tab:update_cells(is_active, hover)
+---@param colors table
+function Tab:update_cells(is_active, hover, colors)
    local tab_state = 'default'
    if is_active then
       tab_state = 'active'
@@ -315,17 +303,77 @@ M.setup = function(opts)
    end)
 
    -- BUILTIN EVENT
-   wezterm.on('format-tab-title', function(tab, _tabs, _panes, _config, hover, max_width)
+   wezterm.on('format-tab-title', function(tab, _tabs, _panes, config, hover, max_width)
+      -- 从 config 参数直接获取颜色（避免 coroutine 问题）
+      local scheme = config.resolved_palette
+      local current_scheme = config.color_scheme or ''
+
+      -- 缓存颜色，仅当主题变化时重新计算
+      if cached_scheme_name ~= current_scheme or cached_colors == nil then
+         local bg = scheme.background
+         local fg = scheme.foreground
+
+         -- 检测是否为浅色主题（通过背景亮度判断）
+         local function is_light_theme(hex_color)
+            if not hex_color then return false end
+            local r = tonumber(hex_color:sub(2, 3), 16) or 0
+            local g = tonumber(hex_color:sub(4, 5), 16) or 0
+            local b = tonumber(hex_color:sub(6, 7), 16) or 0
+            local luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255
+            return luminance > 0.5
+         end
+
+         local is_light = is_light_theme(bg)
+
+         -- 根据主题类型选择合适的颜色
+         local tab_bg, tab_fg, active_bg, active_fg, hover_bg, hover_fg
+
+         if is_light then
+            -- 浅色主题
+            tab_bg = bg
+            tab_fg = scheme.ansi[1] or fg  -- 使用深色文字
+            active_bg = scheme.ansi[5] or '#268bd2'  -- 蓝色高亮
+            active_fg = '#ffffff'
+            hover_bg = scheme.ansi[8] or '#eee8d5'
+            hover_fg = scheme.ansi[1] or fg
+         else
+            -- 深色主题
+            tab_bg = scheme.tab_bar and scheme.tab_bar.background or bg
+            tab_fg = scheme.tab_bar and scheme.tab_bar.inactive_tab and scheme.tab_bar.inactive_tab.fg_color or fg
+            active_bg = scheme.tab_bar and scheme.tab_bar.active_tab and scheme.tab_bar.active_tab.bg_color or scheme.ansi[5] or '#83a598'
+            active_fg = scheme.tab_bar and scheme.tab_bar.active_tab and scheme.tab_bar.active_tab.fg_color or bg
+            hover_bg = scheme.tab_bar and scheme.tab_bar.inactive_tab_hover and scheme.tab_bar.inactive_tab_hover.bg_color or scheme.ansi[8] or '#555555'
+            hover_fg = scheme.tab_bar and scheme.tab_bar.inactive_tab_hover and scheme.tab_bar.inactive_tab_hover.fg_color or fg
+         end
+
+         local red = scheme.ansi[2] or '#ff0000'
+
+         cached_colors = {
+            text_default          = { bg = tab_bg, fg = tab_fg },
+            text_hover            = { bg = hover_bg, fg = hover_fg },
+            text_active           = { bg = active_bg, fg = active_fg },
+            unseen_output_default = { bg = tab_bg, fg = red },
+            unseen_output_hover   = { bg = hover_bg, fg = red },
+            unseen_output_active  = { bg = active_bg, fg = red },
+            scircle_default       = { bg = tab_bg, fg = tab_bg },
+            scircle_hover         = { bg = hover_bg, fg = hover_bg },
+            scircle_active        = { bg = active_bg, fg = active_bg },
+         }
+         cached_scheme_name = current_scheme
+      end
+
+      local colors = cached_colors
+
       if not tab_list[tab.tab_id] then
          tab_list[tab.tab_id] = Tab:new()
          tab_list[tab.tab_id]:set_info(tab.active_pane, tab.panes, tab.is_active, max_width)
          tab_list[tab.tab_id]:create_cells()
-         tab_list[tab.tab_id]:update_cells(tab.is_active, hover)  -- 添加这行!
+         tab_list[tab.tab_id]:update_cells(tab.is_active, hover, colors)
          return tab_list[tab.tab_id]:render()
       end
 
       tab_list[tab.tab_id]:set_info(tab.active_pane, tab.panes, tab.is_active, max_width)
-      tab_list[tab.tab_id]:update_cells(tab.is_active, hover)
+      tab_list[tab.tab_id]:update_cells(tab.is_active, hover, colors)
       return tab_list[tab.tab_id]:render()
    end)
 end

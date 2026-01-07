@@ -56,10 +56,10 @@ end
 -- end
 
 -- ========================================
--- 事件设置（使用自定义标签栏）
+-- 事件设置（标签栏已启用）
 -- ========================================
 require('events.tab-title').setup({ hide_active_tab_unseen = true, numbered_unseen_glyphs = true })
-require('events.new-tab-button').setup()
+-- require('events.new-tab-button').setup()
 
 return Config:init()
              :append(require('config.appearance'))

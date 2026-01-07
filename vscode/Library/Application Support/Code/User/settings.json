@@ -21,6 +21,7 @@
   "editor.minimap.showSlider": "always", // 小地图滑块显示模式
   "editor.unicodeHighlight.nonBasicASCII": false, // 禁用非ASCII字符警告
   "editor.accessibilitySupport": "off", // 关闭辅助功能支持
+  "editor.lineNumbers": "on", // 显示绝对行号
 
   // ======================================
   // 🎨 代码样式自定义配置 (适用于所有编程语言)
@@ -246,8 +247,7 @@
   "workbench.iconTheme": "material-icon-theme", // 文件图标主题
   "workbench.startupEditor": "none", // 启动时不打开编辑器
   "workbench.list.smoothScrolling": true, // 列表平滑滚动
-  "workbench.editor.editorActionsLocation": "titleBar", // 编辑器操作按钮位置
-  "workbench.colorTheme": "Maple Dark", // 颜色主题
+  "workbench.editor.editorActionsLocation": "titleBar", // 颜色主题
 
   // ======================================
   // 🖼️ 窗口管理设置
@@ -259,9 +259,117 @@
   // ======================================
   // 🐹 Go语言开发配置
   // ======================================
-  "go.gopath": "/Users/tsukikage/env/go", // Go工作空间路径
-  "go.goroot": "/Users/tsukikage/env/go/root", // Go安装路径
-  "go.toolsManagement.autoUpdate": true, // 自动更新Go工具
+  // 基础路径配置
+  "go.gopath": "/Users/tsukikage/env/go",
+  "go.goroot": "/Users/tsukikage/env/go/root",
+  "go.toolsManagement.autoUpdate": true,
+
+  // Language Server (gopls) 配置
+  "go.useLanguageServer": true,
+  "gopls": {
+    "ui.completion.usePlaceholders": true,
+    "ui.diagnostic.analyses": {
+      "composites": false,
+      "unusedparams": true,
+      "unusedwrite": true,
+      "useany": true,
+      "nilness": true,
+      "shadow": true
+    },
+    "ui.semanticTokens": true,
+    "formatting.gofumpt": true,
+    "build.buildFlags": ["-tags=wireinject"]
+  },
+
+  // 代码格式化配置
+  "go.formatTool": "gofumpt",
+  "go.lintOnSave": "workspace",
+  "go.lintTool": "golangci-lint",
+  "go.lintFlags": [
+    "--fast",
+    "--enable=gofmt",
+    "--enable=goimports",
+    "--enable=govet",
+    "--enable=staticcheck",
+    "--enable=gosimple",
+    "--enable=unused"
+  ],
+
+  // 代码生成工具配置
+  "go.generateTestsFlags": ["-all", "-exported"],
+  "go.addTags": {
+    "tags": "json",
+    "options": "json=omitempty",
+    "promptForTags": false,
+    "transform": "snakecase"
+  },
+
+  // 测试配置
+  "go.testFlags": ["-v", "-race"],
+  "go.testTimeout": "30s",
+  "go.coverOnSave": false,
+  "go.coverOnTestPackage": true,
+  "go.coverageDecorator": {
+    "type": "gutter",
+    "coveredHighlightColor": "rgba(64,128,64,0.5)",
+    "uncoveredHighlightColor": "rgba(128,64,64,0.5)",
+    "coveredGutterStyle": "blockgreen",
+    "uncoveredGutterStyle": "blockred"
+  },
+
+  // 自动导入和代码补全
+  "go.autocompleteUnimportedPackages": true,
+  "go.gotoSymbol.includeGoroot": false,
+  "go.gotoSymbol.includeImports": true,
+  "go.docsTool": "godoc",
+
+  // 代码检查和提示
+  "go.buildOnSave": "workspace",
+  "go.buildTags": "wireinject",
+  "go.vetOnSave": "workspace",
+  "go.vetFlags": ["-composites=false"],
+
+  // 工具路径配置
+  "go.alternateTools": {
+    "go": "/Users/tsukikage/env/go/root/bin/go",
+    "gofmt": "/Users/tsukikage/env/go/root/bin/gofmt",
+    "gopls": "/Users/tsukikage/env/go/bin/gopls",
+    "dlv": "/Users/tsukikage/env/go/bin/dlv",
+    "goimports": "/Users/tsukikage/env/go/bin/goimports",
+    "gofumpt": "/Users/tsukikage/env/go/bin/gofumpt",
+    "golangci-lint": "/Users/tsukikage/env/go/bin/golangci-lint",
+    "gomodifytags": "/Users/tsukikage/env/go/bin/gomodifytags",
+    "gotests": "/Users/tsukikage/env/go/bin/gotests",
+    "iferr": "/Users/tsukikage/env/go/bin/iferr",
+    "goplay": "/Users/tsukikage/env/go/bin/goplay",
+    "fillswitch": "/Users/tsukikage/env/go/bin/fillswitch"
+  },
+
+  // 其他 Go 插件配置
+  "go-group-imports.groupOrder": ["standard", "company", "default"],
+  "go-group-imports.companyDomain": "ucloudadmin.com",
+
+  // Go 文件关联
+  "[go]": {
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    },
+    "editor.defaultFormatter": "golang.go",
+    "editor.suggest.snippetsPreventQuickSuggestions": false
+  },
+  "[go.mod]": {
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    }
+  },
+  "[go.sum]": {
+    "editor.formatOnSave": false
+  },
+  "[gotmpl]": {
+    "editor.formatOnSave": false
+  },
 
   // ======================================
   // 🔧 第三方扩展配置
@@ -344,6 +452,15 @@
   },
   "Codegeex.Privacy": true,
   "chat.disableAIFeatures": true,
-  "vsicons.dontShowNewVersionMessage": true,
-  "window.confirmSaveUntitledWorkspace": false
+  "window.confirmSaveUntitledWorkspace": false,
+  "workbench.colorTheme": "Everforest Dark",
+  "claudeCode.preferredLocation": "panel",
+  "claudeCode.useTerminal": true,
+  "codegeex.codeLens.enableCodeLens": "disable",
+  "workbench.editorAssociations": {
+    "*.xlsx": "gc-excelviewer-excel-editor"
+  },
+  "Codegeex.Comment.LanguagePreference": "中文",
+  "Codegeex.Chat.LanguagePreference": "中文",
+  "python.defaultInterpreterPath": "/opt/homebrew/bin/python3"
 }

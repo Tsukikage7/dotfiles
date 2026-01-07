@@ -1,6 +1,14 @@
 return {
    -- behaviours
    automatically_reload_config = true,
+
+   -- macOS: 让 Option 键作为 Alt 键使用，而不是输入特殊字符
+   send_composed_key_when_left_alt_is_pressed = false,
+   send_composed_key_when_right_alt_is_pressed = false,
+
+   -- 鼠标绕过：按住 SHIFT 时由 WezTerm 处理（点击链接），否则发送给 tmux
+   bypass_mouse_reporting_modifiers = 'SHIFT',
+
    exit_behavior = 'CloseOnCleanExit', -- if the shell program exited with a successful status
    exit_behavior_messaging = 'Verbose',
    status_update_interval = 1000,

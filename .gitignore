@@ -1,2 +1,24 @@
 .idea
 .vscode
+
+# Fish 敏感文件
+fish/.config/fish/fish_variables
+fish/.config/fish/*.pysave
+
+# Tmux 插件 (通过 TPM 管理)
+tmux/.tmux/plugins/
+!tmux/.tmux/plugins/tpm/
+
+# 日志文件
+*.log
+*_log.txt
+
+# Spec workflow 模板
+.spec-workflow/
+wezterm/.spec-workflow/
+
+# 临时文件
+*.swp
+*.swo
+*~
+.DS_Store

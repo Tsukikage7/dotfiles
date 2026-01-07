@@ -3,8 +3,8 @@ local backdrops = require('utils.backdrops')
 --local colors = require('colors.custom')
 
 return {
-   max_fps = 120,
-   front_end = 'WebGpu',
+   max_fps = 60,  -- 降低帧率减少 wgpu 空帧警告
+   front_end = 'OpenGL',  -- WebGpu 在某些 Mac 上有兼容性问题
    webgpu_power_preference = 'HighPerformance',
    webgpu_preferred_adapter = gpu_adapters:pick_best(),
    -- webgpu_preferred_adapter = gpu_adapters:pick_manual('Dx12', 'IntegratedGpu'),
@@ -19,11 +19,16 @@ return {
    macos_window_background_blur = 35,
 
    -- cursor
-   animation_fps = 120,
+   animation_fps = 60,  -- 与 max_fps 保持一致
    cursor_blink_ease_in = "EaseIn",
    cursor_blink_ease_out = "EaseOut",
    cursor_blink_rate = 600,
    default_cursor_style = "BlinkingBar",
+
+   -- 光标拖影效果 (类似 Kitty cursor_trail)
+   -- 光标移动时的平滑动画，模拟拖影效果
+   cursor_thickness = 2,
+   force_reverse_video_cursor = false,
 
    -- color scheme
    --colors = colors,
@@ -34,21 +39,14 @@ return {
    -- scrollbar
    enable_scroll_bar = true,
 
-   -- tab bar - 无分隔符样式
+   -- tab bar - 启用自定义标签栏样式
    enable_tab_bar = true,
-   hide_tab_bar_if_only_one_tab = true,
-   use_fancy_tab_bar = false,
-   tab_max_width = 30,
-   show_tab_index_in_tab_bar = false,
+   hide_tab_bar_if_only_one_tab = false,
+   use_fancy_tab_bar = false,  -- false 才能使用自定义样式
+   tab_max_width = 25,
+   show_tab_index_in_tab_bar = false,  -- 由 tab-title.lua 处理
    switch_to_last_active_tab_when_closing_tab = true,
-   tab_bar_style = {
-      window_hide = '',
-      window_hide_hover = '',
-      window_maximize = '',
-      window_maximize_hover = '',
-      window_close = '',
-      window_close_hover = '',
-   },
+   tab_bar_at_bottom = false,
 
    -- window
    window_padding = {
@@ -60,9 +58,5 @@ return {
    adjust_window_size_when_changing_font_size = false,
    window_close_confirmation = 'NeverPrompt',
    window_decorations = "RESIZE",
-   window_frame = {
-      active_titlebar_bg = 'rgba(0, 0, 0, 0.0)',
-      inactive_titlebar_bg = 'rgba(0, 0, 0, 0.0)',
-   },
    inactive_pane_hsb = {saturation = 0.7, brightness = 0.6},
 }
