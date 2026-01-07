@@ -198,6 +198,8 @@ stow ghostty
 
 ### Kitty
 
+`Kitty` 官网 🔗: [sw.kovidgoyal.net/kitty](https://sw.kovidgoyal.net/kitty/)
+
 **安装:**
 ```bash
 brew install --cask kitty
@@ -208,6 +210,29 @@ brew install --cask kitty
 cd ~/dotfiles
 stow kitty
 ```
+
+**特性:**
+- Everforest Dark 主题
+- 毛玻璃透明效果
+- 光标轨迹动画
+- tmux 快捷键集成
+
+**快捷键:**
+
+| 快捷键 | 功能 |
+|--------|------|
+| `Cmd+T` | 新建标签页 |
+| `Cmd+W` | 关闭标签页 |
+| `Cmd+1-9` | 切换标签页 |
+| `Cmd+[` | tmux 垂直分屏 |
+| `Cmd+]` | tmux 水平分屏 |
+| `Cmd+X` | 关闭 tmux 窗格 |
+| `Cmd+D` | 断开 tmux 会话 |
+| `Cmd+N` | 新建 tmux 窗口 |
+| `Cmd+F` | FZF 搜索历史 |
+| `Cmd+E` | 智能提示 (URLs/paths) |
+| `Cmd+U` | Unicode 字符输入 |
+| `Fn+F` | 切换全屏 |
 
 ## 终端提示符
 
@@ -336,13 +361,59 @@ stow bottom
 **安装:**
 ```bash
 brew install tmux
+
+# 安装 TPM (Tmux Plugin Manager)
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ```
 
 **配置:**
 ```bash
 cd ~/dotfiles
 stow tmux
+
+# 在 tmux 中安装插件
+# 按 Prefix + I (大写 i) 安装插件
 ```
+
+**特性:**
+- Everforest Dark 主题配色
+- Nerd Font 图标支持
+- 鼠标支持 (选中、滚动、调整窗格)
+- 选中复制保持高亮
+
+**快捷键:**
+
+| 快捷键 | 功能 |
+|--------|------|
+| `Ctrl+Space` | Prefix 键 |
+| `Prefix + \|` | 垂直分屏 |
+| `Prefix + -` | 水平分屏 |
+| `Prefix + r` | 重载配置 |
+| `Prefix + f` | FZF 模糊搜索 |
+| `Prefix + Ctrl-s` | 保存会话 |
+| `Prefix + Ctrl-r` | 恢复会话 |
+| `Alt + h/j/k/l` | 切换窗格 |
+| `Alt + 1-5` | 切换窗口 |
+
+**已安装插件:**
+- `tmux-cpu` - CPU/内存监控
+- `tmux-battery` - 电池状态
+- `tmux-online-status` - 网络状态
+- `tmux-resurrect` - 会话保存/恢复
+- `tmux-continuum` - 自动保存/恢复
+- `tmux-fzf` - FZF 集成
+
+**Fish Shell 快捷命令:**
+
+| 命令 | 功能 |
+|------|------|
+| `tn <name>` | 新建会话 |
+| `ta <name>` | 连接会话 |
+| `tk <name>` | 关闭会话 |
+| `tka` | 关闭所有会话 |
+| `tl` | 列出会话 |
+| `ts` | 切换会话 |
+| `tr` | 重命名会话 |
 
 ## SSH 工具
 

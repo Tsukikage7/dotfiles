@@ -13,10 +13,6 @@ tmux/.tmux/plugins/
 *.log
 *_log.txt
 
-# Spec workflow 模板
-.spec-workflow/
-wezterm/.spec-workflow/
-
 # 临时文件
 *.swp
 *.swo
