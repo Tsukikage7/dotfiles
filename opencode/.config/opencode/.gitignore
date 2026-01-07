@@ -9,3 +9,4 @@ package.json
 .env*
 secrets.json
 credentials.json
+oh-my-opencode.json
