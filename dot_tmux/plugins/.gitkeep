@@ -1,0 +1,4 @@
+# Tmux 插件目录
+# TPM 和其他插件需要手动安装:
+# git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+# 然后在 tmux 中按 Prefix + I 安装其他插件

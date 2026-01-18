@@ -1,0 +1,98 @@
+" ============================================================================
+" 共享的 Vim 配置
+" 适用于: Neovim, VSCode Vim, GoLand IdeaVim
+" ============================================================================
+
+" ============================================================================
+" 基础设置
+" ============================================================================
+" Leader 键设置为空格
+let mapleader = " "
+let maplocalleader = " "
+
+" 启用相对行号
+set number
+set relativenumber
+
+" 搜索设置
+set ignorecase          " 搜索忽略大小写
+set smartcase           " 智能大小写搜索
+set hlsearch            " 高亮搜索结果
+set incsearch           " 增量搜索
+
+" 缩进设置
+set expandtab           " 使用空格代替 Tab
+set tabstop=4           " Tab 宽度
+set shiftwidth=4        " 缩进宽度
+set softtabstop=4       " 软 Tab 宽度
+set autoindent          " 自动缩进
+set smartindent         " 智能缩进
+
+" 其他设置
+set scrolloff=8         " 上下保留 8 行
+set sidescrolloff=8     " 左右保留 8 列
+set clipboard=unnamed   " 使用系统剪贴板
+
+" ============================================================================
+" 基础键位映射 (适用于所有编辑器)
+" ============================================================================
+
+" 快速保存
+nnoremap <leader>w :w<CR>
+
+" 快速退出
+nnoremap <leader>q :q<CR>
+
+" 取消搜索高亮
+nnoremap <Esc> :noh<CR>
+
+" 更好的窗口导航
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" 窗口分割
+nnoremap <leader>sv :vsplit<CR>
+nnoremap <leader>sh :split<CR>
+
+" 更好的缩进
+vnoremap < <gv
+vnoremap > >gv
+
+" 在可视模式下移动行
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
+" 保持粘贴寄存器内容
+vnoremap p "_dP
+
+" 快速跳转到行首/行尾
+nnoremap H ^
+nnoremap L $
+vnoremap H ^
+vnoremap L $
+
+" 快速删除整行(不复制到寄存器)
+nnoremap <leader>d "_d
+vnoremap <leader>d "_d
+
+" 快速复制到系统剪贴板
+nnoremap <leader>y "+y
+vnoremap <leader>y "+y
+
+" 快速粘贴系统剪贴板内容
+nnoremap <leader>p "+p
+vnoremap <leader>p "+p
+
+" 快速选择全部
+nnoremap <leader>a ggVG
+
+" ============================================================================
+" 搜索和替换
+" ============================================================================
+" 快速搜索当前单词
+nnoremap <leader>/ *N
+
+" 替换当前单词
+nnoremap <leader>r :%s/\<<C-r><C-w>\>//g<Left><Left>

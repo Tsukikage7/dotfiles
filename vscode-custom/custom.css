@@ -1,0 +1,229 @@
+/* ============================================
+ * VSCode 自定义样式
+ * ============================================ */
+
+/* --------------------------------------------
+ * UI 字体 (替代 fonted 扩展)
+ * -------------------------------------------- */
+.monaco-workbench,
+.monaco-workbench .monaco-list,
+.monaco-workbench .monaco-tl-row,
+.monaco-workbench .sidebar,
+.monaco-workbench .title,
+.monaco-workbench .tabs-container,
+.monaco-workbench .statusbar,
+.monaco-workbench .quick-input-widget,
+.monaco-workbench .notifications-toasts,
+.monaco-workbench .context-view {
+  font-family: "LigaMonaco Nerd Font", -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
+/* --------------------------------------------
+ * 全局过渡动画
+ * -------------------------------------------- */
+
+/* 所有元素添加平滑过渡 */
+* {
+  transition: background-color 0.2s ease,
+              color 0.15s ease,
+              border-color 0.2s ease,
+              box-shadow 0.2s ease,
+              opacity 0.15s ease,
+              transform 0.2s ease !important;
+}
+
+/* --------------------------------------------
+ * 编辑器区域动画
+ * -------------------------------------------- */
+
+/* 编辑器标签页切换动画 */
+.tab {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.tab:hover {
+  transform: translateY(-1px);
+}
+
+/* 编辑器组切换淡入效果 */
+.editor-group-container {
+  animation: fadeIn 0.15s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0.8;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --------------------------------------------
+ * 侧边栏动画
+ * -------------------------------------------- */
+
+/* 侧边栏展开/收起动画 */
+.sidebar {
+  transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* 文件树项目悬停效果 */
+.monaco-list-row {
+  transition: background-color 0.15s ease,
+              transform 0.1s ease !important;
+}
+
+.monaco-list-row:hover {
+  transform: translateX(2px);
+}
+
+/* 文件树展开/折叠动画 */
+.monaco-tl-twistie {
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* --------------------------------------------
+ * 面板动画
+ * -------------------------------------------- */
+
+/* 底部面板滑入效果 */
+.panel {
+  transition: height 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* 终端标签切换 */
+.terminal-tabs-entry {
+  transition: all 0.15s ease !important;
+}
+
+/* --------------------------------------------
+ * 下拉菜单和弹出框
+ * -------------------------------------------- */
+
+/* 命令面板动画 */
+.quick-input-widget {
+  animation: slideDown 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* 右键菜单动画 */
+.context-view.monaco-menu-container {
+  animation: scaleIn 0.12s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 悬浮提示框动画 */
+.monaco-hover {
+  animation: fadeInUp 0.15s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --------------------------------------------
+ * 按钮和交互元素
+ * -------------------------------------------- */
+
+/* 按钮悬停效果 */
+.monaco-button {
+  transition: all 0.15s ease !important;
+}
+
+.monaco-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.monaco-button:active {
+  transform: translateY(0);
+}
+
+/* 图标按钮悬停 */
+.codicon {
+  transition: transform 0.15s ease, color 0.15s ease !important;
+}
+
+.action-item:hover .codicon {
+  transform: scale(1.1);
+}
+
+/* --------------------------------------------
+ * 滚动条美化
+ * -------------------------------------------- */
+
+/* 滚动条平滑显示/隐藏 */
+.scrollbar {
+  transition: opacity 0.2s ease !important;
+}
+
+/* --------------------------------------------
+ * 通知动画
+ * -------------------------------------------- */
+
+.notifications-toasts {
+  animation: slideInRight 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* --------------------------------------------
+ * 搜索框动画
+ * -------------------------------------------- */
+
+.search-view .search-widget {
+  transition: all 0.2s ease !important;
+}
+
+/* --------------------------------------------
+ * 代码补全列表
+ * -------------------------------------------- */
+
+.suggest-widget {
+  animation: fadeInUp 0.12s ease-out;
+}
+
+.monaco-list-row.focused {
+  transition: background-color 0.1s ease !important;
+}
+

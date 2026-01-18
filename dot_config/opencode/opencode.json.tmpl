@@ -1,0 +1,16 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "theme": "everforest",
+  "plugin": [
+    "oh-my-opencode"
+  ],
+  "mcp": {
+    "mermaid": {
+      "type": "local",
+      "command": ["{{ .chezmoi.homeDir }}/env/node_modules/bin/mermaid-mcp-server"],
+      "environment": {
+        "CONTENT_IMAGE_SUPPORTED": "false"
+      }
+    }
+  }
+}

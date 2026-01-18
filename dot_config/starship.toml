@@ -1,0 +1,123 @@
+# Starship 配置 - Everforest Dark 主题
+
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_status\
+$nodejs\
+$python\
+$rust\
+$golang\
+$docker_context\
+$cmd_duration\
+$line_break\
+$character"""
+
+right_format = """$time"""
+
+[character]
+success_symbol = "[❯](#a7c080)"
+error_symbol = "[❯](#e67e80)"
+vicmd_symbol = "[❮](#dbbc7f)"
+
+[username]
+style_user = "bold #7fbbb3"
+style_root = "bold #e67e80"
+format = "[$user]($style)[@](#859289)"
+show_always = false
+
+[hostname]
+ssh_only = true
+format = "[$hostname](#d699b6) "
+
+[directory]
+truncation_length = 5
+truncation_symbol = ".../"
+format = "[󰉋 $path]($style)[$read_only]($read_only_style) "
+style = "bold #83c092"
+read_only = " 󰌾"
+read_only_style = "#e67e80"
+
+[git_branch]
+format = "[$symbol$branch]($style) "
+symbol = "󰊢 "
+style = "bold #d699b6"
+truncation_length = 20
+
+[git_status]
+format = '([\[$all_status$ahead_behind\]]($style) )'
+style = "#e67e80"
+conflicted = "󰞇 "
+untracked = "󰐕 "
+ahead = "↑${count}"
+diverged = "↑${ahead_count}↓${behind_count}"
+behind = "↓${count}"
+stashed = "󰏗 "
+modified = "󰏫 "
+staged = "[󰸞 ${count}](#a7c080)"
+renamed = "󰑕 "
+deleted = "󰍴 "
+
+[nodejs]
+format = "[󰎙 $version](#a7c080) "
+detect_extensions = ["js", "mjs", "cjs", "ts", "tsx"]
+detect_files = ["package.json", ".node-version"]
+detect_folders = ["node_modules"]
+
+[python]
+format = '[󰌠 $version( $virtualenv)](#dbbc7f) '
+detect_extensions = ["py"]
+detect_files = [".python-version", "Pipfile", "requirements.txt", "pyproject.toml"]
+
+[rust]
+format = "[󱘗 $version](#e67e80) "
+detect_extensions = ["rs"]
+detect_files = ["Cargo.toml"]
+
+[golang]
+format = "[󰟓 $version](#83c092) "
+detect_extensions = ["go"]
+detect_files = ["go.mod", "go.sum"]
+
+[docker_context]
+format = "[󰡨 $context](#7fbbb3) "
+only_with_files = true
+detect_files = ["docker-compose.yml", "docker-compose.yaml", "Dockerfile"]
+
+[cmd_duration]
+min_time = 2000
+format = "[󰥔 $duration](#dbbc7f) "
+
+[time]
+disabled = false
+format = '[󰥔 $time](#859289)'
+time_format = "%H:%M"
+
+[line_break]
+disabled = false
+
+[package]
+disabled = true
+
+[java]
+disabled = true
+
+[memory_usage]
+disabled = true
+
+[battery]
+disabled = true
+
+[kubernetes]
+disabled = true
+
+[aws]
+disabled = true
+
+[gcloud]
+disabled = true
+
+[terraform]
+disabled = true

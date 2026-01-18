@@ -1,0 +1,8 @@
+{
+  "autoupdate:channel": "latest",
+  "term:fontsize": 16,
+  "term:fontfamily": "LigaMonaco Nerd Font",
+  "term:theme": "everforest-dark",
+  "window:transparent": true,
+  "window:opacity": 0.92
+}

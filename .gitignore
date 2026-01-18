@@ -1,13 +1,16 @@
+# IDE
 .idea
 .vscode
 
-# Fish 敏感文件
-fish/.config/fish/fish_variables
-fish/.config/fish/*.pysave
+# AI 相关
+.claude
+.cursor
+.opencode
+.spec-workflow
 
-# Tmux 插件 (通过 TPM 管理)
-tmux/.tmux/plugins/
-!tmux/.tmux/plugins/tpm/
+# Fish 敏感文件
+dot_config/fish/fish_variables
+dot_config/fish/*.pysave
 
 # 日志文件
 *.log
@@ -18,3 +21,6 @@ tmux/.tmux/plugins/
 *.swo
 *~
 .DS_Store
+
+# Neovim 插件锁定文件 (由 lazy.nvim 管理)
+dot_config/nvim/lazy-lock.json

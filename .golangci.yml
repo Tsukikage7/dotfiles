@@ -1,0 +1,179 @@
+# golangci-lint 配置文件
+# 文档: https://golangci-lint.run/usage/configuration/
+
+run:
+  timeout: 5m
+  tests: true
+  skip-dirs:
+    - vendor
+    - third_party
+    - testdata
+    - examples
+    - Godeps
+    - builtin
+  skip-files:
+    - ".*\\.pb\\.go$"
+    - ".*\\.gen\\.go$"
+
+output:
+  formats:
+    - format: colored-line-number
+  print-issued-lines: true
+  print-linter-name: true
+  uniq-by-line: true
+  sort-results: true
+
+linters:
+  disable-all: true
+  enable:
+    # 默认启用的 linters
+    - errcheck      # 检查未处理的错误
+    - gosimple      # 简化代码建议
+    - govet         # Go 官方静态分析工具
+    - ineffassign   # 检查无效的赋值
+    - staticcheck   # 高级静态分析
+    - unused        # 检查未使用的代码
+
+    # 格式化相关
+    - gofmt         # 检查代码格式
+    - goimports     # 检查 import 排序
+    - gofumpt       # 更严格的 gofmt
+
+    # 代码质量
+    - gocritic      # 代码质量检查
+    - revive        # 快速的 golint 替代品
+    - stylecheck    # 风格检查
+    - misspell      # 拼写检查
+    - unconvert     # 检查不必要的类型转换
+    - unparam       # 检查未使用的函数参数
+    - whitespace    # 检查多余的空白
+
+    # 性能相关
+    - prealloc      # 切片预分配检查
+
+    # Bug 检测
+    - bodyclose     # 检查 HTTP body 是否关闭
+    - noctx         # 检查 HTTP 请求是否传递 context
+    - rowserrcheck  # 检查 sql.Rows.Err 是否被检查
+    - sqlclosecheck # 检查 SQL 连接是否关闭
+
+    # 安全相关
+    - gosec         # 安全检查
+
+    # 复杂度
+    - gocyclo       # 圈复杂度检查
+    - dupl          # 代码重复检查
+
+linters-settings:
+  errcheck:
+    check-type-assertions: true
+    check-blank: true
+    exclude-functions:
+      - (*database/sql.Rows).Close
+      - (*database/sql.DB).Close
+
+  govet:
+    enable-all: true
+    disable:
+      - shadow
+      - fieldalignment
+
+  gofmt:
+    simplify: true
+
+  goimports:
+    local-prefixes: ucloudadmin.com
+
+  gocyclo:
+    min-complexity: 15
+
+  dupl:
+    threshold: 100
+
+  gocritic:
+    enabled-tags:
+      - diagnostic
+      - style
+      - performance
+      - experimental
+    disabled-checks:
+      - commentedOutCode
+      - whyNoLint
+
+  revive:
+    confidence: 0.8
+    rules:
+      - name: blank-imports
+      - name: context-as-argument
+      - name: context-keys-type
+      - name: dot-imports
+      - name: error-return
+      - name: error-strings
+      - name: error-naming
+      - name: exported
+      - name: if-return
+      - name: increment-decrement
+      - name: var-naming
+      - name: var-declaration
+      - name: package-comments
+      - name: range
+      - name: receiver-naming
+      - name: time-naming
+      - name: unexported-return
+      - name: indent-error-flow
+      - name: errorf
+      - name: empty-block
+      - name: superfluous-else
+      - name: unused-parameter
+      - name: unreachable-code
+      - name: redefines-builtin-id
+
+  staticcheck:
+    checks: ["all"]
+
+  gosec:
+    excludes:
+      - G104  # 未检查错误（由 errcheck 处理）
+      - G307  # defer 中的错误检查
+    severity: medium
+    confidence: medium
+
+  misspell:
+    locale: US
+    ignore-words:
+      - someword
+
+  unused:
+    check-exported: false
+
+  whitespace:
+    multi-if: false
+    multi-func: false
+
+issues:
+  exclude-rules:
+    # 测试文件中允许的规则
+    - path: _test\.go
+      linters:
+        - gocyclo
+        - errcheck
+        - dupl
+        - gosec
+        - gocritic
+
+    # 主函数特殊处理
+    - path: cmd/
+      text: "main function"
+      linters:
+        - gocyclo
+
+  exclude-dirs:
+    - vendor
+    - third_party
+
+  # 显示所有问题
+  max-issues-per-linter: 0
+  max-same-issues: 0
+
+  # 不排除新代码的问题
+  new: false

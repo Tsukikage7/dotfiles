@@ -1,0 +1,1116 @@
+{
+  // ======================================
+  // 错误处理 (GoLand 风格)
+  // ======================================
+  "if err != nil return err": {
+    "prefix": ["iferr", "err"],
+    "body": [
+      "if ${1:err} != nil {",
+      "\treturn ${1:err}",
+      "}"
+    ],
+    "description": "if err != nil { return err }"
+  },
+  "if err != nil return nil, err": {
+    "prefix": ["iferre", "errn"],
+    "body": [
+      "if ${1:err} != nil {",
+      "\treturn nil, ${1:err}",
+      "}"
+    ],
+    "description": "if err != nil { return nil, err }"
+  },
+  "if err != nil return zero, err": {
+    "prefix": ["errz"],
+    "body": [
+      "if ${1:err} != nil {",
+      "\treturn ${2:0}, ${1:err}",
+      "}"
+    ],
+    "description": "if err != nil { return 0, err }"
+  },
+  "if err != nil return empty, err": {
+    "prefix": ["errs"],
+    "body": [
+      "if ${1:err} != nil {",
+      "\treturn \"\", ${1:err}",
+      "}"
+    ],
+    "description": "if err != nil { return \"\", err }"
+  },
+  "if err != nil return false, err": {
+    "prefix": ["errb"],
+    "body": [
+      "if ${1:err} != nil {",
+      "\treturn false, ${1:err}",
+      "}"
+    ],
+    "description": "if err != nil { return false, err }"
+  },
+  "if err != nil return wrapped error": {
+    "prefix": ["iferrw", "errw"],
+    "body": [
+      "if ${1:err} != nil {",
+      "\treturn fmt.Errorf(\"${2:failed to do something}: %w\", ${1:err})",
+      "}"
+    ],
+    "description": "if err != nil { return fmt.Errorf(...) }"
+  },
+  "if err != nil log.Fatal": {
+    "prefix": ["iferrf", "errf"],
+    "body": [
+      "if ${1:err} != nil {",
+      "\tlog.Fatal(${1:err})",
+      "}"
+    ],
+    "description": "if err != nil { log.Fatal(err) }"
+  },
+  "if err != nil panic": {
+    "prefix": ["iferrp", "errp"],
+    "body": [
+      "if ${1:err} != nil {",
+      "\tpanic(${1:err})",
+      "}"
+    ],
+    "description": "if err != nil { panic(err) }"
+  },
+  "if err != nil log and return": {
+    "prefix": ["errl"],
+    "body": [
+      "if ${1:err} != nil {",
+      "\tlog.Printf(\"${2:error}: %v\", ${1:err})",
+      "\treturn ${3:err}",
+      "}"
+    ],
+    "description": "if err != nil { log + return }"
+  },
+  "errors.New": {
+    "prefix": ["errn", "newerr"],
+    "body": "errors.New(\"${1:error message}\")",
+    "description": "errors.New(...)"
+  },
+  "errors.Is": {
+    "prefix": ["erris"],
+    "body": "errors.Is(${1:err}, ${2:target})",
+    "description": "errors.Is(err, target)"
+  },
+  "errors.As": {
+    "prefix": ["erras"],
+    "body": [
+      "var ${1:target} ${2:*MyError}",
+      "if errors.As(${3:err}, &${1:target}) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "errors.As(err, &target)"
+  },
+
+  // ======================================
+  // 函数和方法 (GoLand 风格)
+  // ======================================
+  "func main": {
+    "prefix": ["main", "fmain"],
+    "body": [
+      "func main() {",
+      "\t$0",
+      "}"
+    ],
+    "description": "main 函数"
+  },
+  "func init": {
+    "prefix": ["init", "finit"],
+    "body": [
+      "func init() {",
+      "\t$0",
+      "}"
+    ],
+    "description": "init 函数"
+  },
+  "func": {
+    "prefix": ["func", "fn"],
+    "body": [
+      "func ${1:name}(${2:params}) ${3:returnType} {",
+      "\t$0",
+      "}"
+    ],
+    "description": "函数声明"
+  },
+  "func with error": {
+    "prefix": ["funce", "fne"],
+    "body": [
+      "func ${1:name}(${2:params}) (${3:returnType}, error) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "带 error 返回的函数"
+  },
+  "func anonymous": {
+    "prefix": ["fna", "anon"],
+    "body": [
+      "func(${1:params}) ${2:returnType} {",
+      "\t$0",
+      "}(${3:args})"
+    ],
+    "description": "匿名函数"
+  },
+  "method": {
+    "prefix": ["meth", "method"],
+    "body": [
+      "func (${1:r} *${2:Receiver}) ${3:Name}(${4:params}) ${5:returnType} {",
+      "\t$0",
+      "}"
+    ],
+    "description": "方法声明"
+  },
+  "method with error": {
+    "prefix": ["methe", "methode"],
+    "body": [
+      "func (${1:r} *${2:Receiver}) ${3:Name}(${4:params}) (${5:returnType}, error) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "带 error 返回的方法"
+  },
+  "method value receiver": {
+    "prefix": ["methv"],
+    "body": [
+      "func (${1:r} ${2:Receiver}) ${3:Name}(${4:params}) ${5:returnType} {",
+      "\t$0",
+      "}"
+    ],
+    "description": "值接收者方法"
+  },
+
+  // ======================================
+  // 结构体和接口 (GoLand 风格)
+  // ======================================
+  "type struct": {
+    "prefix": ["struct", "st", "type"],
+    "body": [
+      "type ${1:Name} struct {",
+      "\t${2:Field} ${3:Type}",
+      "}"
+    ],
+    "description": "结构体声明"
+  },
+  "type interface": {
+    "prefix": ["interface", "iface"],
+    "body": [
+      "type ${1:Name} interface {",
+      "\t${2:Method}(${3:params}) ${4:returnType}",
+      "}"
+    ],
+    "description": "接口声明"
+  },
+  "type alias": {
+    "prefix": ["typea", "alias"],
+    "body": "type ${1:Name} = ${2:Type}",
+    "description": "类型别名"
+  },
+  "type definition": {
+    "prefix": ["typed", "newtype"],
+    "body": "type ${1:Name} ${2:Type}",
+    "description": "类型定义"
+  },
+  "struct embedding": {
+    "prefix": ["embed"],
+    "body": [
+      "type ${1:Name} struct {",
+      "\t${2:EmbeddedType}",
+      "\t${3:Field} ${4:Type}",
+      "}"
+    ],
+    "description": "结构体嵌入"
+  },
+
+  // ======================================
+  // 变量和常量 (GoLand 风格)
+  // ======================================
+  "var declaration": {
+    "prefix": ["var", "vr"],
+    "body": "var ${1:name} ${2:type}",
+    "description": "变量声明"
+  },
+  "var block": {
+    "prefix": ["vars", "varb"],
+    "body": [
+      "var (",
+      "\t${1:name} ${2:type}",
+      ")"
+    ],
+    "description": "变量块"
+  },
+  "const declaration": {
+    "prefix": ["const", "co"],
+    "body": "const ${1:name} = ${2:value}",
+    "description": "常量声明"
+  },
+  "const block": {
+    "prefix": ["consts", "constb"],
+    "body": [
+      "const (",
+      "\t${1:name} = ${2:value}",
+      ")"
+    ],
+    "description": "常量块"
+  },
+  "const iota": {
+    "prefix": ["iota", "enum"],
+    "body": [
+      "const (",
+      "\t${1:Name} ${2:Type} = iota",
+      "\t${3:Value1}",
+      "\t${4:Value2}",
+      ")"
+    ],
+    "description": "iota 枚举"
+  },
+  "short var": {
+    "prefix": [":=", "sv"],
+    "body": "${1:name} := ${2:value}",
+    "description": "短变量声明"
+  },
+
+  // ======================================
+  // 条件语句 (GoLand 风格)
+  // ======================================
+  "if": {
+    "prefix": ["if"],
+    "body": [
+      "if ${1:condition} {",
+      "\t$0",
+      "}"
+    ],
+    "description": "if 语句"
+  },
+  "if else": {
+    "prefix": ["ife", "ifelse"],
+    "body": [
+      "if ${1:condition} {",
+      "\t$2",
+      "} else {",
+      "\t$0",
+      "}"
+    ],
+    "description": "if else 语句"
+  },
+  "if else if": {
+    "prefix": ["ifei", "ifelseif"],
+    "body": [
+      "if ${1:condition1} {",
+      "\t$2",
+      "} else if ${3:condition2} {",
+      "\t$4",
+      "} else {",
+      "\t$0",
+      "}"
+    ],
+    "description": "if else if 语句"
+  },
+  "if with init": {
+    "prefix": ["ifi", "ifinit"],
+    "body": [
+      "if ${1:v} := ${2:expression}; ${3:condition} {",
+      "\t$0",
+      "}"
+    ],
+    "description": "带初始化的 if"
+  },
+  "if nil": {
+    "prefix": ["ifnil", "nil"],
+    "body": [
+      "if ${1:v} == nil {",
+      "\t$0",
+      "}"
+    ],
+    "description": "if v == nil"
+  },
+  "if not nil": {
+    "prefix": ["ifnn", "notnil"],
+    "body": [
+      "if ${1:v} != nil {",
+      "\t$0",
+      "}"
+    ],
+    "description": "if v != nil"
+  },
+  "if ok": {
+    "prefix": ["ifok"],
+    "body": [
+      "if ${1:v}, ok := ${2:expression}; ok {",
+      "\t$0",
+      "}"
+    ],
+    "description": "if v, ok := expr; ok"
+  },
+  "if not ok": {
+    "prefix": ["ifnok"],
+    "body": [
+      "if ${1:v}, ok := ${2:expression}; !ok {",
+      "\t$0",
+      "}"
+    ],
+    "description": "if v, ok := expr; !ok"
+  },
+
+  // ======================================
+  // 循环 (GoLand 风格)
+  // ======================================
+  "for": {
+    "prefix": ["for"],
+    "body": [
+      "for {",
+      "\t$0",
+      "}"
+    ],
+    "description": "无限循环"
+  },
+  "for condition": {
+    "prefix": ["forc", "while"],
+    "body": [
+      "for ${1:condition} {",
+      "\t$0",
+      "}"
+    ],
+    "description": "条件循环 (类似 while)"
+  },
+  "for i": {
+    "prefix": ["fori", "forn"],
+    "body": [
+      "for ${1:i} := ${2:0}; ${1:i} < ${3:n}; ${1:i}++ {",
+      "\t$0",
+      "}"
+    ],
+    "description": "for i := 0; i < n; i++"
+  },
+  "for range": {
+    "prefix": ["forr", "range"],
+    "body": [
+      "for ${1:i}, ${2:v} := range ${3:collection} {",
+      "\t$0",
+      "}"
+    ],
+    "description": "for range 循环"
+  },
+  "for range index": {
+    "prefix": ["forri", "rangei"],
+    "body": [
+      "for ${1:i} := range ${2:collection} {",
+      "\t$0",
+      "}"
+    ],
+    "description": "for range 仅索引"
+  },
+  "for range value": {
+    "prefix": ["forrv", "rangev"],
+    "body": [
+      "for _, ${1:v} := range ${2:collection} {",
+      "\t$0",
+      "}"
+    ],
+    "description": "for range 仅值"
+  },
+  "for range map": {
+    "prefix": ["forrm", "rangem"],
+    "body": [
+      "for ${1:k}, ${2:v} := range ${3:m} {",
+      "\t$0",
+      "}"
+    ],
+    "description": "for range map"
+  },
+  "for range channel": {
+    "prefix": ["forrc", "rangec"],
+    "body": [
+      "for ${1:v} := range ${2:ch} {",
+      "\t$0",
+      "}"
+    ],
+    "description": "for range channel"
+  },
+  "for select": {
+    "prefix": ["fors"],
+    "body": [
+      "for {",
+      "\tselect {",
+      "\tcase ${1:v} := <-${2:ch}:",
+      "\t\t$0",
+      "\tcase <-${3:done}:",
+      "\t\treturn",
+      "\t}",
+      "}"
+    ],
+    "description": "for select 循环"
+  },
+
+  // ======================================
+  // Switch (GoLand 风格)
+  // ======================================
+  "switch": {
+    "prefix": ["switch", "sw"],
+    "body": [
+      "switch ${1:expression} {",
+      "case ${2:value}:",
+      "\t$0",
+      "default:",
+      "\t",
+      "}"
+    ],
+    "description": "switch 语句"
+  },
+  "switch true": {
+    "prefix": ["switcht", "swt"],
+    "body": [
+      "switch {",
+      "case ${1:condition}:",
+      "\t$0",
+      "default:",
+      "\t",
+      "}"
+    ],
+    "description": "switch true 语句"
+  },
+  "switch type": {
+    "prefix": ["switchtype", "swtype"],
+    "body": [
+      "switch ${1:v} := ${2:x}.(type) {",
+      "case ${3:Type}:",
+      "\t$0",
+      "default:",
+      "\t",
+      "}"
+    ],
+    "description": "类型 switch"
+  },
+
+  // ======================================
+  // Select (GoLand 风格)
+  // ======================================
+  "select": {
+    "prefix": ["select", "sel"],
+    "body": [
+      "select {",
+      "case ${1:v} := <-${2:ch1}:",
+      "\t$0",
+      "case ${3:ch2} <- ${4:v}:",
+      "\t",
+      "default:",
+      "\t",
+      "}"
+    ],
+    "description": "select 语句"
+  },
+  "select timeout": {
+    "prefix": ["selt", "timeout"],
+    "body": [
+      "select {",
+      "case ${1:v} := <-${2:ch}:",
+      "\t$0",
+      "case <-time.After(${3:time.Second}):",
+      "\t// timeout",
+      "}"
+    ],
+    "description": "select with timeout"
+  },
+
+  // ======================================
+  // 打印和日志 (GoLand 风格)
+  // ======================================
+  "fmt.Println": {
+    "prefix": ["pl", "println", "fpl"],
+    "body": "fmt.Println(${1:v})",
+    "description": "fmt.Println(...)"
+  },
+  "fmt.Printf": {
+    "prefix": ["pf", "printf", "fpf"],
+    "body": "fmt.Printf(\"${1:%+v}\\n\", ${2:v})",
+    "description": "fmt.Printf(...)"
+  },
+  "fmt.Sprintf": {
+    "prefix": ["sp", "sprintf"],
+    "body": "fmt.Sprintf(\"${1:%s}\", ${2:v})",
+    "description": "fmt.Sprintf(...)"
+  },
+  "fmt.Errorf": {
+    "prefix": ["ef", "errorf"],
+    "body": "fmt.Errorf(\"${1:error}: %w\", ${2:err})",
+    "description": "fmt.Errorf(...)"
+  },
+  "log.Println": {
+    "prefix": ["lpl", "logln"],
+    "body": "log.Println(${1:v})",
+    "description": "log.Println(...)"
+  },
+  "log.Printf": {
+    "prefix": ["lpf", "logf"],
+    "body": "log.Printf(\"${1:%+v}\\n\", ${2:v})",
+    "description": "log.Printf(...)"
+  },
+  "log.Fatal": {
+    "prefix": ["lf", "fatal"],
+    "body": "log.Fatal(${1:v})",
+    "description": "log.Fatal(...)"
+  },
+  "log.Fatalf": {
+    "prefix": ["lff", "fatalf"],
+    "body": "log.Fatalf(\"${1:%+v}\\n\", ${2:v})",
+    "description": "log.Fatalf(...)"
+  },
+  "log.Panic": {
+    "prefix": ["lp", "logpanic"],
+    "body": "log.Panic(${1:v})",
+    "description": "log.Panic(...)"
+  },
+
+  // ======================================
+  // 测试 (GoLand 风格)
+  // ======================================
+  "test function": {
+    "prefix": ["test", "tf"],
+    "body": [
+      "func Test${1:Name}(t *testing.T) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "测试函数"
+  },
+  "test error": {
+    "prefix": ["teste", "tfe"],
+    "body": [
+      "func Test${1:Name}(t *testing.T) {",
+      "\t${2:result}, err := ${3:FunctionUnderTest}(${4:args})",
+      "\tif err != nil {",
+      "\t\tt.Fatalf(\"unexpected error: %v\", err)",
+      "\t}",
+      "\tif ${2:result} != ${5:expected} {",
+      "\t\tt.Errorf(\"got %v, want %v\", ${2:result}, ${5:expected})",
+      "\t}",
+      "}"
+    ],
+    "description": "带错误检查的测试"
+  },
+  "benchmark function": {
+    "prefix": ["bench", "bf"],
+    "body": [
+      "func Benchmark${1:Name}(b *testing.B) {",
+      "\tfor i := 0; i < b.N; i++ {",
+      "\t\t$0",
+      "\t}",
+      "}"
+    ],
+    "description": "基准测试函数"
+  },
+  "benchmark with setup": {
+    "prefix": ["benchs"],
+    "body": [
+      "func Benchmark${1:Name}(b *testing.B) {",
+      "\t// Setup",
+      "\t${2:setup}",
+      "\tb.ResetTimer()",
+      "\tfor i := 0; i < b.N; i++ {",
+      "\t\t$0",
+      "\t}",
+      "}"
+    ],
+    "description": "带 setup 的基准测试"
+  },
+  "table driven test": {
+    "prefix": ["tdt", "tabletest"],
+    "body": [
+      "func Test${1:Name}(t *testing.T) {",
+      "\ttests := []struct {",
+      "\t\tname string",
+      "\t\t${2:input} ${3:inputType}",
+      "\t\twant ${4:wantType}",
+      "\t}{",
+      "\t\t{",
+      "\t\t\tname: \"${5:test case}\",",
+      "\t\t\t${2:input}: ${6:inputValue},",
+      "\t\t\twant: ${7:wantValue},",
+      "\t\t},",
+      "\t}",
+      "\tfor _, tt := range tests {",
+      "\t\tt.Run(tt.name, func(t *testing.T) {",
+      "\t\t\tgot := ${8:FunctionUnderTest}(tt.${2:input})",
+      "\t\t\tif got != tt.want {",
+      "\t\t\t\tt.Errorf(\"${8:FunctionUnderTest}() = %v, want %v\", got, tt.want)",
+      "\t\t\t}",
+      "\t\t})",
+      "\t}",
+      "}"
+    ],
+    "description": "表驱动测试"
+  },
+  "t.Run": {
+    "prefix": ["trun", "subtest"],
+    "body": [
+      "t.Run(\"${1:name}\", func(t *testing.T) {",
+      "\t$0",
+      "})"
+    ],
+    "description": "子测试"
+  },
+  "t.Error": {
+    "prefix": ["terr"],
+    "body": "t.Errorf(\"${1:format}\", ${2:args})",
+    "description": "t.Errorf"
+  },
+  "t.Fatal": {
+    "prefix": ["tfatal"],
+    "body": "t.Fatalf(\"${1:format}\", ${2:args})",
+    "description": "t.Fatalf"
+  },
+  "t.Helper": {
+    "prefix": ["thelper"],
+    "body": "t.Helper()",
+    "description": "t.Helper()"
+  },
+  "t.Parallel": {
+    "prefix": ["tpar"],
+    "body": "t.Parallel()",
+    "description": "t.Parallel()"
+  },
+  "t.Skip": {
+    "prefix": ["tskip"],
+    "body": "t.Skip(\"${1:reason}\")",
+    "description": "t.Skip"
+  },
+  "require equal": {
+    "prefix": ["req", "require"],
+    "body": "require.Equal(t, ${1:expected}, ${2:actual})",
+    "description": "require.Equal (testify)"
+  },
+  "assert equal": {
+    "prefix": ["aeq", "assert"],
+    "body": "assert.Equal(t, ${1:expected}, ${2:actual})",
+    "description": "assert.Equal (testify)"
+  },
+
+  // ======================================
+  // 并发 (GoLand 风格)
+  // ======================================
+  "goroutine": {
+    "prefix": ["go", "gof"],
+    "body": [
+      "go func() {",
+      "\t$0",
+      "}()"
+    ],
+    "description": "goroutine"
+  },
+  "goroutine with params": {
+    "prefix": ["gop"],
+    "body": [
+      "go func(${1:param} ${2:type}) {",
+      "\t$0",
+      "}(${3:arg})"
+    ],
+    "description": "带参数的 goroutine"
+  },
+  "channel make": {
+    "prefix": ["ch", "chan", "makech"],
+    "body": "${1:ch} := make(chan ${2:type})",
+    "description": "创建 channel"
+  },
+  "channel buffered": {
+    "prefix": ["chb", "chanb"],
+    "body": "${1:ch} := make(chan ${2:type}, ${3:size})",
+    "description": "创建带缓冲 channel"
+  },
+  "channel close": {
+    "prefix": ["chc", "closech"],
+    "body": "close(${1:ch})",
+    "description": "关闭 channel"
+  },
+  "channel send": {
+    "prefix": ["chs"],
+    "body": "${1:ch} <- ${2:value}",
+    "description": "发送到 channel"
+  },
+  "channel receive": {
+    "prefix": ["chr"],
+    "body": "${1:v} := <-${2:ch}",
+    "description": "从 channel 接收"
+  },
+  "channel receive ok": {
+    "prefix": ["chrok"],
+    "body": "${1:v}, ok := <-${2:ch}",
+    "description": "从 channel 接收 (带 ok)"
+  },
+  "mutex": {
+    "prefix": ["mu", "mutex"],
+    "body": [
+      "var ${1:mu} sync.Mutex",
+      "${1:mu}.Lock()",
+      "defer ${1:mu}.Unlock()",
+      "$0"
+    ],
+    "description": "Mutex 使用"
+  },
+  "rwmutex": {
+    "prefix": ["rwmu", "rwmutex"],
+    "body": [
+      "var ${1:mu} sync.RWMutex",
+      "${1:mu}.RLock()",
+      "defer ${1:mu}.RUnlock()",
+      "$0"
+    ],
+    "description": "RWMutex 读锁"
+  },
+  "waitgroup": {
+    "prefix": ["wg", "waitgroup"],
+    "body": [
+      "var ${1:wg} sync.WaitGroup",
+      "${1:wg}.Add(${2:1})",
+      "go func() {",
+      "\tdefer ${1:wg}.Done()",
+      "\t$0",
+      "}()",
+      "${1:wg}.Wait()"
+    ],
+    "description": "WaitGroup 使用"
+  },
+  "once": {
+    "prefix": ["once"],
+    "body": [
+      "var ${1:once} sync.Once",
+      "${1:once}.Do(func() {",
+      "\t$0",
+      "})"
+    ],
+    "description": "sync.Once"
+  },
+  "errgroup": {
+    "prefix": ["eg", "errgroup"],
+    "body": [
+      "g, ctx := errgroup.WithContext(${1:context.Background()})",
+      "g.Go(func() error {",
+      "\t$0",
+      "\treturn nil",
+      "})",
+      "if err := g.Wait(); err != nil {",
+      "\treturn err",
+      "}"
+    ],
+    "description": "errgroup 使用"
+  },
+
+  // ======================================
+  // Defer (GoLand 风格)
+  // ======================================
+  "defer": {
+    "prefix": ["df", "defer"],
+    "body": "defer ${1:func}()",
+    "description": "defer 调用"
+  },
+  "defer func": {
+    "prefix": ["dff", "deferfunc"],
+    "body": [
+      "defer func() {",
+      "\t$0",
+      "}()"
+    ],
+    "description": "defer 匿名函数"
+  },
+  "defer recover": {
+    "prefix": ["dfr", "deferrecover"],
+    "body": [
+      "defer func() {",
+      "\tif r := recover(); r != nil {",
+      "\t\t${1:log.Printf(\"recovered: %v\", r)}",
+      "\t}",
+      "}()"
+    ],
+    "description": "defer recover"
+  },
+  "defer close": {
+    "prefix": ["dfc", "deferclose"],
+    "body": "defer ${1:file}.Close()",
+    "description": "defer close"
+  },
+  "defer unlock": {
+    "prefix": ["dfu", "deferunlock"],
+    "body": "defer ${1:mu}.Unlock()",
+    "description": "defer unlock"
+  },
+
+  // ======================================
+  // Context (GoLand 风格)
+  // ======================================
+  "context background": {
+    "prefix": ["ctxb", "bgctx"],
+    "body": "ctx := context.Background()",
+    "description": "context.Background()"
+  },
+  "context TODO": {
+    "prefix": ["ctxtodo"],
+    "body": "ctx := context.TODO()",
+    "description": "context.TODO()"
+  },
+  "context with timeout": {
+    "prefix": ["ctxt", "ctxtimeout"],
+    "body": [
+      "ctx, cancel := context.WithTimeout(${1:context.Background()}, ${2:time.Second*10})",
+      "defer cancel()",
+      "$0"
+    ],
+    "description": "context.WithTimeout"
+  },
+  "context with cancel": {
+    "prefix": ["ctxc", "ctxcancel"],
+    "body": [
+      "ctx, cancel := context.WithCancel(${1:context.Background()})",
+      "defer cancel()",
+      "$0"
+    ],
+    "description": "context.WithCancel"
+  },
+  "context with deadline": {
+    "prefix": ["ctxd", "ctxdeadline"],
+    "body": [
+      "ctx, cancel := context.WithDeadline(${1:context.Background()}, ${2:time.Now().Add(time.Second*10)})",
+      "defer cancel()",
+      "$0"
+    ],
+    "description": "context.WithDeadline"
+  },
+  "context with value": {
+    "prefix": ["ctxv", "ctxvalue"],
+    "body": "ctx := context.WithValue(${1:ctx}, ${2:key}, ${3:value})",
+    "description": "context.WithValue"
+  },
+
+  // ======================================
+  // Make 和 New (GoLand 风格)
+  // ======================================
+  "make slice": {
+    "prefix": ["makes", "makeslice"],
+    "body": "${1:s} := make([]${2:type}, ${3:len}${4:, ${5:cap}})",
+    "description": "make slice"
+  },
+  "make map": {
+    "prefix": ["makem", "makemap"],
+    "body": "${1:m} := make(map[${2:keyType}]${3:valueType}${4:, ${5:size}})",
+    "description": "make map"
+  },
+  "make channel": {
+    "prefix": ["makec", "makechan"],
+    "body": "${1:ch} := make(chan ${2:type}${3:, ${4:buffer}})",
+    "description": "make channel"
+  },
+  "new": {
+    "prefix": ["new"],
+    "body": "${1:p} := new(${2:Type})",
+    "description": "new pointer"
+  },
+
+  // ======================================
+  // JSON (GoLand 风格)
+  // ======================================
+  "json tag": {
+    "prefix": ["json", "jsontag"],
+    "body": "`json:\"${1:field}${2:,omitempty}\"`",
+    "description": "json struct tag"
+  },
+  "json marshal": {
+    "prefix": ["jsonm", "marshal"],
+    "body": [
+      "${1:data}, err := json.Marshal(${2:v})",
+      "if err != nil {",
+      "\treturn ${3:err}",
+      "}"
+    ],
+    "description": "json.Marshal"
+  },
+  "json unmarshal": {
+    "prefix": ["jsonu", "unmarshal"],
+    "body": [
+      "var ${1:v} ${2:Type}",
+      "if err := json.Unmarshal(${3:data}, &${1:v}); err != nil {",
+      "\treturn ${4:err}",
+      "}"
+    ],
+    "description": "json.Unmarshal"
+  },
+  "json encoder": {
+    "prefix": ["jsone", "jsonenc"],
+    "body": [
+      "if err := json.NewEncoder(${1:w}).Encode(${2:v}); err != nil {",
+      "\treturn ${3:err}",
+      "}"
+    ],
+    "description": "json.Encoder"
+  },
+  "json decoder": {
+    "prefix": ["jsond", "jsondec"],
+    "body": [
+      "var ${1:v} ${2:Type}",
+      "if err := json.NewDecoder(${3:r}).Decode(&${1:v}); err != nil {",
+      "\treturn ${4:err}",
+      "}"
+    ],
+    "description": "json.Decoder"
+  },
+
+  // ======================================
+  // HTTP (GoLand 风格)
+  // ======================================
+  "http handler": {
+    "prefix": ["httphandler", "handler"],
+    "body": [
+      "func ${1:handler}(w http.ResponseWriter, r *http.Request) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "HTTP handler"
+  },
+  "http handler func": {
+    "prefix": ["httpfunc", "handlefunc"],
+    "body": [
+      "http.HandleFunc(\"${1:/path}\", func(w http.ResponseWriter, r *http.Request) {",
+      "\t$0",
+      "})"
+    ],
+    "description": "http.HandleFunc"
+  },
+  "http server": {
+    "prefix": ["httpserver", "serve"],
+    "body": [
+      "server := &http.Server{",
+      "\tAddr:    \"${1::8080}\",",
+      "\tHandler: ${2:mux},",
+      "}",
+      "log.Fatal(server.ListenAndServe())"
+    ],
+    "description": "HTTP server"
+  },
+  "http get": {
+    "prefix": ["httpget"],
+    "body": [
+      "resp, err := http.Get(${1:url})",
+      "if err != nil {",
+      "\treturn ${2:err}",
+      "}",
+      "defer resp.Body.Close()",
+      "$0"
+    ],
+    "description": "http.Get"
+  },
+  "http post": {
+    "prefix": ["httppost"],
+    "body": [
+      "resp, err := http.Post(${1:url}, \"${2:application/json}\", ${3:body})",
+      "if err != nil {",
+      "\treturn ${4:err}",
+      "}",
+      "defer resp.Body.Close()",
+      "$0"
+    ],
+    "description": "http.Post"
+  },
+
+  // ======================================
+  // 文件操作 (GoLand 风格)
+  // ======================================
+  "file open": {
+    "prefix": ["fopen", "openfile"],
+    "body": [
+      "${1:f}, err := os.Open(${2:filename})",
+      "if err != nil {",
+      "\treturn ${3:err}",
+      "}",
+      "defer ${1:f}.Close()",
+      "$0"
+    ],
+    "description": "os.Open"
+  },
+  "file create": {
+    "prefix": ["fcreate", "createfile"],
+    "body": [
+      "${1:f}, err := os.Create(${2:filename})",
+      "if err != nil {",
+      "\treturn ${3:err}",
+      "}",
+      "defer ${1:f}.Close()",
+      "$0"
+    ],
+    "description": "os.Create"
+  },
+  "file read all": {
+    "prefix": ["fread", "readfile"],
+    "body": [
+      "${1:data}, err := os.ReadFile(${2:filename})",
+      "if err != nil {",
+      "\treturn ${3:err}",
+      "}"
+    ],
+    "description": "os.ReadFile"
+  },
+  "file write": {
+    "prefix": ["fwrite", "writefile"],
+    "body": [
+      "if err := os.WriteFile(${1:filename}, ${2:data}, ${3:0644}); err != nil {",
+      "\treturn ${4:err}",
+      "}"
+    ],
+    "description": "os.WriteFile"
+  },
+
+  // ======================================
+  // 包和导入 (GoLand 风格)
+  // ======================================
+  "package main": {
+    "prefix": ["pkgm", "packagemain"],
+    "body": [
+      "package main",
+      "",
+      "func main() {",
+      "\t$0",
+      "}"
+    ],
+    "description": "package main"
+  },
+  "package": {
+    "prefix": ["pkg", "package"],
+    "body": "package ${1:name}",
+    "description": "package declaration"
+  },
+  "import": {
+    "prefix": ["imp", "import"],
+    "body": "import \"${1:package}\"",
+    "description": "import"
+  },
+  "import block": {
+    "prefix": ["imps", "imports"],
+    "body": [
+      "import (",
+      "\t\"${1:package}\"",
+      ")"
+    ],
+    "description": "import block"
+  },
+
+  // ======================================
+  // 返回语句 (GoLand 风格)
+  // ======================================
+  "return": {
+    "prefix": ["ret", "return"],
+    "body": "return ${1:value}",
+    "description": "return"
+  },
+  "return nil": {
+    "prefix": ["retn", "retnil"],
+    "body": "return nil",
+    "description": "return nil"
+  },
+  "return nil, err": {
+    "prefix": ["retne", "retnilerr"],
+    "body": "return nil, ${1:err}",
+    "description": "return nil, err"
+  },
+  "return err": {
+    "prefix": ["rete", "reterr"],
+    "body": "return ${1:err}",
+    "description": "return err"
+  }
+}

@@ -1,0 +1,97 @@
+# Fish Shell Configuration
+
+# =========================================================
+# 系统 PATH
+# =========================================================
+set -gx PATH /opt/homebrew/bin /opt/homebrew/sbin /usr/local/bin /usr/bin /bin /usr/sbin /sbin $PATH
+
+# =========================================================
+# 工具初始化
+# =========================================================
+
+# Starship 提示符
+if command -v starship >/dev/null 2>&1
+    source (/opt/homebrew/bin/starship init fish --print-full-init | psub)
+end
+
+# Zoxide (智能 cd)
+if command -v zoxide >/dev/null 2>&1
+    zoxide init fish --cmd cd | source
+end
+
+# =========================================================
+# 基础环境
+# =========================================================
+set -gx LANG en_US.UTF-8
+set -gx LC_ALL en_US.UTF-8
+set -gx EDITOR nvim
+
+# =========================================================
+# Go 环境
+# =========================================================
+set -gx GOROOT $HOME/env/go/root
+set -gx GOPATH $HOME/env/go
+set -gx GO111MODULE on
+set -gx GOPROXY "https://goproxy.cn,direct"
+set -gx GOPRIVATE "*.ucloudadmin.com"
+set -gx GONOPROXY "*.ucloudadmin.com"
+set -gx GONOSUMDB "*.ucloudadmin.com"
+set -gx PATH $GOROOT/bin $GOPATH/bin $PATH
+
+# =========================================================
+# Rust 环境
+# =========================================================
+set -gx CARGO_HOME $HOME/.cargo
+set -gx RUSTUP_DIST_SERVER "https://rsproxy.cn"
+set -gx RUSTUP_UPDATE_ROOT "https://rsproxy.cn/rustup"
+set -gx PATH $CARGO_HOME/bin $PATH
+
+# =========================================================
+# Node 环境
+# =========================================================
+set -gx PATH /opt/homebrew/opt/node@22/bin $PATH
+set -gx LDFLAGS "-L/opt/homebrew/opt/node@22/lib"
+set -gx CPPFLAGS "-I/opt/homebrew/opt/node@22/include"
+
+# 全局包目录
+set -gx NODE_GLOBAL_DIR "$HOME/env/node_modules"
+set -gx NODE_BIN_DIR "$NODE_GLOBAL_DIR/bin"
+if not string match -q "*$NODE_BIN_DIR*" $PATH
+    set -gx PATH $NODE_BIN_DIR $PATH
+end
+
+# npm 配置
+set -gx npm_config_prefix "$NODE_GLOBAL_DIR"
+set -gx npm_config_cache "$NODE_GLOBAL_DIR/cache"
+set -gx npm_config_registry "https://registry.npmmirror.com/"
+
+# pnpm 配置
+set -gx PNPM_HOME "$NODE_GLOBAL_DIR"
+set -gx PNPM_STORE_DIR "$NODE_GLOBAL_DIR/pnpm-store"
+set -gx PNPM_CACHE_DIR "$NODE_GLOBAL_DIR/pnpm-cache"
+
+# =========================================================
+# Python 环境
+# =========================================================
+set -gx PATH "/Library/Frameworks/Python.framework/Versions/3.8/bin" $PATH
+
+# =========================================================
+# 数据库
+# =========================================================
+set -gx PATH "/opt/homebrew/opt/postgresql@15/bin" $PATH
+set -gx PGCLIENTENCODING UTF8
+
+# =========================================================
+# 其他工具
+# =========================================================
+set -gx PATH {{ .chezmoi.homeDir }}/.local/bin $PATH
+
+# OrbStack
+source ~/.orbstack/shell/init2.fish 2>/dev/null || :
+
+# =========================================================
+# 交互式会话
+# =========================================================
+if status is-interactive
+    # 交互式命令放这里
+end

@@ -1,0 +1,63 @@
+# Git 全局配置
+
+[user]
+	name = {{ .git.name }}
+	email = {{ .git.email }}
+
+[init]
+	defaultBranch = main
+
+[core]
+	autocrlf = input
+	pager = delta
+	editor = nvim
+	excludesfile = ~/.gitignore_global
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true
+	side-by-side = true
+	line-numbers = true
+	syntax-theme = Everforest
+	plus-style = syntax "#3a4a3a"
+	minus-style = syntax "#4a3a3a"
+	hunk-header-style = file line-number syntax
+	file-style = bold yellow
+	file-decoration-style = none
+
+[merge]
+	conflictStyle = zdiff3
+
+[diff]
+	colorMoved = default
+
+[pull]
+	rebase = false
+
+[push]
+	default = current
+	autoSetupRemote = true
+
+[fetch]
+	prune = true
+
+[rebase]
+	autoStash = true
+
+[alias]
+	st = status -sb
+	co = checkout
+	br = branch
+	ci = commit
+	ca = commit --amend
+	cp = cherry-pick
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	ll = log --oneline -20
+	last = log -1 HEAD --stat
+	undo = reset --soft HEAD~1
+	unstage = reset HEAD --
+
+[safe]
+	directory = /opt/homebrew

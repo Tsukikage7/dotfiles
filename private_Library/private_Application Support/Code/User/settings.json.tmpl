@@ -1,0 +1,192 @@
+{
+  // =========================================================
+  // 编辑器外观
+  // =========================================================
+  "editor.fontFamily": "LigaMonaco Nerd Font",
+  "editor.fontSize": 14,
+  "editor.fontLigatures": true,
+  "editor.codeLensFontFamily": "LigaMonaco Nerd Font",
+  "editor.cursorBlinking": "expand",
+  "editor.minimap.showSlider": "always",
+  "editor.renderWhitespace": "boundary",
+  "editor.guides.bracketPairs": "active",
+
+  // =========================================================
+  // 编辑器行为
+  // =========================================================
+  "editor.suggestSelection": "first",
+  "editor.quickSuggestionsDelay": 10,
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.smoothScrolling": true,
+  "editor.mouseWheelZoom": true,
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.linkedEditing": true,
+  "editor.stickyScroll.enabled": true,
+  "editor.unicodeHighlight.nonBasicASCII": false,
+  "editor.accessibilitySupport": "off",
+
+  // =========================================================
+  // 代码样式 (字体样式)
+  // =========================================================
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": ["comment", "punctuation.definition.comment"],
+        "settings": { "fontStyle": "italic bold" }
+      },
+      {
+        "scope": ["keyword", "storage"],
+        "settings": { "fontStyle": "italic bold" }
+      },
+      {
+        "scope": ["variable.language", "constant.language", "support.type.builtin"],
+        "settings": { "fontStyle": "italic" }
+      },
+      {
+        "scope": ["entity.name.function", "support.function"],
+        "settings": { "fontStyle": "italic" }
+      },
+      {
+        "scope": ["entity.other.attribute-name", "entity.name.tag"],
+        "settings": { "fontStyle": "italic" }
+      }
+    ]
+  },
+
+  // =========================================================
+  // 文件管理
+  // =========================================================
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+
+  // =========================================================
+  // 资源管理器
+  // =========================================================
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  "explorer.confirmPasteNative": false,
+  "explorer.compactFolders": false,
+
+  // =========================================================
+  // 搜索
+  // =========================================================
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/vendor": true,
+    "**/.git": true,
+    "**/dist": true,
+    "**/build": true
+  },
+
+  // =========================================================
+  // 集成终端
+  // =========================================================
+  "terminal.integrated.fontFamily": "LigaMonaco Nerd Font",
+  "terminal.integrated.fontSize": 14,
+  "terminal.integrated.cursorStyle": "line",
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.smoothScrolling": true,
+  "terminal.integrated.copyOnSelection": true,
+  "terminal.integrated.defaultProfile.osx": "fish",
+  "terminal.external.osxExec": "Kitty.app",
+
+  // =========================================================
+  // Git
+  // =========================================================
+  "git.enableSmartCommit": true,
+  "git.confirmSync": false,
+  "git.autofetch": true,
+
+  // =========================================================
+  // 工作台
+  // =========================================================
+  "workbench.colorTheme": "Everforest Dark",
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.startupEditor": "none",
+  "workbench.list.smoothScrolling": true,
+
+  // =========================================================
+  // 窗口
+  // =========================================================
+  "window.zoomLevel": 1,
+  "window.titleBarStyle": "custom",
+
+  // =========================================================
+  // Copilot (禁用)
+  // =========================================================
+  "github.copilot.enable": { "*": false },
+  "github.copilot.editor.enableAutoCompletions": false,
+  "chat.commandCenter.enabled": false,
+  "chat.agent.enabled": false,
+  "terminal.integrated.chat.enabled": false,
+  "inlineChat.mode": "disabled",
+
+  // =========================================================
+  // 语言格式化
+  // =========================================================
+  "[json]": { "editor.defaultFormatter": "vscode.json-language-features" },
+  "[jsonc]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[javascript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[typescript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[typescriptreact]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[css]": { "editor.defaultFormatter": "vscode.css-language-features" },
+  "[yaml]": { "editor.defaultFormatter": "redhat.vscode-yaml" },
+  "[dockercompose]": { "editor.defaultFormatter": "redhat.vscode-yaml" },
+
+  // =========================================================
+  // Go
+  // =========================================================
+  "go.gopath": "${env:HOME}/env/go",
+  "go.goroot": "${env:HOME}/env/go/root",
+  "go.toolsManagement.autoUpdate": true,
+  "gopls": {
+    "ui.completion.usePlaceholders": true,
+    "ui.semanticTokens": true,
+    "ui.diagnostic.analyses": {
+      "unusedparams": true,
+      "unusedwrite": true,
+      "useany": true,
+      "nilness": true
+    },
+    "formatting.gofumpt": true,
+    "formatting.local": "ucloudadmin.com"
+  },
+  "go.lintTool": "golangci-lint",
+  "go.lintOnSave": "workspace",
+  "go.lintFlags": ["--fast"],
+  "go.testFlags": ["-v", "-race"],
+  "go.testTimeout": "30s",
+  "go.coverOnTestPackage": true,
+  "go.addTags": {
+    "tags": "json",
+    "options": "json=omitempty",
+    "promptForTags": false,
+    "transform": "snakecase"
+  },
+  "[go]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "golang.go",
+    "editor.codeActionsOnSave": { "source.organizeImports": "explicit" }
+  },
+
+  // =========================================================
+  // Python
+  // =========================================================
+  "python.defaultInterpreterPath": "/opt/homebrew/bin/python3",
+
+  // =========================================================
+  // 扩展
+  // =========================================================
+  "prettier.bracketSameLine": true,
+  "animations.Enabled": true,
+  "animations.Smooth-Mode": true,
+  "animations.CursorAnimation": true,
+  "animations.CursorAnimationOptions": { "TrailLength": 3, "CursorStyle": "line" },
+  "vscode_custom_css.imports": [
+    "file://{{ .chezmoi.homeDir }}/dotfiles/vscode-custom/custom.css",
+    "file://{{ .chezmoi.homeDir }}/dotfiles/vscode-custom/custom.js"
+  ]
+}

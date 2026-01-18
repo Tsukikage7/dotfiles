@@ -1,0 +1,27 @@
+# chezmoi 忽略文件
+# https://www.chezmoi.io/reference/special-files-and-directories/chezmoiignore/
+
+# Git
+.git
+.gitignore
+
+# IDE
+.idea
+.spec-workflow
+
+# 直接从 dotfiles 引用的资源 (不需要复制)
+vscode-custom
+wallpapers
+
+# 项目文件
+README.md
+.golangci.yml
+
+# macOS
+.DS_Store
+
+# tmux 插件 (通过 TPM 管理)
+dot_tmux/plugins/*
+
+# neovim 插件 (通过 lazy.nvim 管理)
+dot_config/nvim/lazy-lock.json

@@ -1,0 +1,15 @@
+# bat 配置文件
+# https://github.com/sharkdp/bat
+
+# 主题设置
+--theme="Everforest-Dark"
+
+# 显示行号和 Git 修改标记
+--style="numbers,changes,header"
+
+# 使用斜体文本 (需要终端支持)
+--italic-text=always
+
+# 分页器设置 (使用 less，支持颜色和鼠标滚动)
+--paging=auto
+--pager="less -FR"

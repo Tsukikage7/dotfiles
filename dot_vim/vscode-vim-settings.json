@@ -1,0 +1,243 @@
+{
+  "vim.leader": " ",
+  "vim.useSystemClipboard": true,
+  "vim.hlsearch": true,
+  "vim.incsearch": true,
+  "vim.ignorecase": true,
+  "vim.smartcase": true,
+
+  // 启用相对行号
+  "vim.statusBarColorControl": true,
+  "vim.statusBarColors.normal": ["#83a598", "#282828"],
+  "vim.statusBarColors.insert": ["#b8bb26", "#282828"],
+  "vim.statusBarColors.visual": ["#fe8019", "#282828"],
+  "vim.statusBarColors.visualline": ["#fe8019", "#282828"],
+  "vim.statusBarColors.visualblock": ["#fe8019", "#282828"],
+  "vim.statusBarColors.replace": ["#fb4934", "#282828"],
+
+  // 启用 easymotion
+  "vim.easymotion": true,
+  "vim.easymotionMarkerBackgroundColor": "#282828",
+  "vim.easymotionMarkerForegroundColorOneChar": "#fabd2f",
+  "vim.easymotionMarkerForegroundColorTwoChar": "#fe8019",
+
+  // 启用 surround
+  "vim.surround": true,
+
+  // 启用 commentary
+  "vim.commentary": true,
+
+  // 启用相对行号显示
+  "vim.highlightedyank.enable": true,
+  "vim.highlightedyank.color": "rgba(250, 189, 47, 0.3)",
+
+  // 普通模式键位映射
+  "vim.normalModeKeyBindingsNonRecursive": [
+    // 快速保存
+    {
+      "before": ["<leader>", "w"],
+      "commands": ["workbench.action.files.save"]
+    },
+    // 快速退出
+    {
+      "before": ["<leader>", "q"],
+      "commands": ["workbench.action.closeActiveEditor"]
+    },
+    // 取消搜索高亮
+    {
+      "before": ["<Esc>"],
+      "commands": [":nohl"]
+    },
+
+    // 文件操作
+    {
+      "before": ["<leader>", "f", "f"],
+      "commands": ["workbench.action.quickOpen"]
+    },
+    {
+      "before": ["<leader>", "f", "r"],
+      "commands": ["workbench.action.openRecent"]
+    },
+    {
+      "before": ["<leader>", "f", "s"],
+      "commands": ["workbench.action.gotoSymbol"]
+    },
+    {
+      "before": ["<leader>", "f", "a"],
+      "commands": ["workbench.action.showCommands"]
+    },
+
+    // 代码导航
+    {
+      "before": ["g", "d"],
+      "commands": ["editor.action.revealDefinition"]
+    },
+    {
+      "before": ["g", "i"],
+      "commands": ["editor.action.goToImplementation"]
+    },
+    {
+      "before": ["g", "r"],
+      "commands": ["editor.action.goToReferences"]
+    },
+    {
+      "before": ["g", "t"],
+      "commands": ["editor.action.goToTypeDefinition"]
+    },
+
+    // 代码操作
+    {
+      "before": ["<leader>", "c", "a"],
+      "commands": ["editor.action.quickFix"]
+    },
+    {
+      "before": ["<leader>", "c", "r"],
+      "commands": ["editor.action.rename"]
+    },
+    {
+      "before": ["<leader>", "c", "f"],
+      "commands": ["editor.action.formatDocument"]
+    },
+    {
+      "before": ["<leader>", "c", "o"],
+      "commands": ["editor.action.organizeImports"]
+    },
+
+    // 窗口分割
+    {
+      "before": ["<leader>", "s", "v"],
+      "commands": ["workbench.action.splitEditorRight"]
+    },
+    {
+      "before": ["<leader>", "s", "h"],
+      "commands": ["workbench.action.splitEditorDown"]
+    },
+
+    // 窗口导航
+    {
+      "before": ["<C-h>"],
+      "commands": ["workbench.action.navigateLeft"]
+    },
+    {
+      "before": ["<C-j>"],
+      "commands": ["workbench.action.navigateDown"]
+    },
+    {
+      "before": ["<C-k>"],
+      "commands": ["workbench.action.navigateUp"]
+    },
+    {
+      "before": ["<C-l>"],
+      "commands": ["workbench.action.navigateRight"]
+    },
+
+    // 侧边栏
+    {
+      "before": ["<leader>", "e"],
+      "commands": ["workbench.action.toggleSidebarVisibility"]
+    },
+
+    // 终端
+    {
+      "before": ["<leader>", "T"],
+      "commands": ["workbench.action.terminal.toggleTerminal"]
+    },
+
+    // Git
+    {
+      "before": ["<leader>", "g", "b"],
+      "commands": ["git.checkout"]
+    },
+    {
+      "before": ["<leader>", "g", "c"],
+      "commands": ["git.commit"]
+    },
+    {
+      "before": ["<leader>", "g", "p"],
+      "commands": ["git.push"]
+    },
+    {
+      "before": ["<leader>", "g", "l"],
+      "commands": ["git.viewHistory"]
+    },
+
+    // 错误导航
+    {
+      "before": ["]", "e"],
+      "commands": ["editor.action.marker.nextInFiles"]
+    },
+    {
+      "before": ["[", "e"],
+      "commands": ["editor.action.marker.prevInFiles"]
+    },
+
+    // 快速跳转行首/行尾
+    {
+      "before": ["H"],
+      "after": ["^"]
+    },
+    {
+      "before": ["L"],
+      "after": ["$"]
+    },
+
+    // 快速选择全部
+    {
+      "before": ["<leader>", "a"],
+      "after": ["g", "g", "V", "G"]
+    },
+
+    // 搜索当前单词
+    {
+      "before": ["<leader>", "/"],
+      "after": ["*", "N"]
+    }
+  ],
+
+  // 可视模式键位映射
+  "vim.visualModeKeyBindingsNonRecursive": [
+    // 更好的缩进
+    {
+      "before": ["<"],
+      "commands": ["editor.action.outdentLines"]
+    },
+    {
+      "before": [">"],
+      "commands": ["editor.action.indentLines"]
+    },
+
+    // 移动行
+    {
+      "before": ["J"],
+      "commands": ["editor.action.moveLinesDownAction"]
+    },
+    {
+      "before": ["K"],
+      "commands": ["editor.action.moveLinesUpAction"]
+    },
+
+    // 快速跳转行首/行尾
+    {
+      "before": ["H"],
+      "after": ["^"]
+    },
+    {
+      "before": ["L"],
+      "after": ["$"]
+    }
+  ],
+
+  // 插入模式键位映射
+  "vim.insertModeKeyBindings": [],
+
+  // 处理的键 (VSCode 优先)
+  "vim.handleKeys": {
+    "<C-a>": false,
+    "<C-f>": false,
+    "<C-c>": false,
+    "<C-v>": false,
+    "<C-x>": false,
+    "<C-z>": false,
+    "<C-y>": false
+  }
+}

@@ -1,0 +1,69 @@
+# Ghostty 终端配置
+
+# =========================================================
+# 字体
+# =========================================================
+font-family = LigaMonaco Nerd Font
+font-size = 16
+font-feature = -calt
+font-feature = -liga
+
+# =========================================================
+# 主题
+# =========================================================
+theme = Everforest Dark Hard
+
+# =========================================================
+# 窗口
+# =========================================================
+window-decoration = true
+window-padding-x = 10
+window-padding-y = 10
+window-theme = auto
+background-opacity = 0.8
+background-image = {{ .chezmoi.homeDir }}/dotfiles/wallpapers/wallpaper.png
+background-image-fit = cover
+background-image-opacity = 0.15
+
+# =========================================================
+# 光标
+# =========================================================
+cursor-style = block
+cursor-style-blink = true
+
+# =========================================================
+# 交互
+# =========================================================
+mouse-hide-while-typing = true
+copy-on-select = true
+clipboard-read = allow
+clipboard-write = allow
+confirm-close-surface = false
+
+# =========================================================
+# 标签栏
+# =========================================================
+window-new-tab-position = end
+
+# =========================================================
+# 快捷键
+# =========================================================
+keybind = cmd+c=copy_to_clipboard
+keybind = cmd+v=paste_from_clipboard
+keybind = cmd+t=new_tab
+keybind = cmd+w=close_surface
+keybind = cmd+n=new_window
+keybind = cmd+q=quit
+keybind = cmd+1=goto_tab:1
+keybind = cmd+2=goto_tab:2
+keybind = cmd+3=goto_tab:3
+keybind = cmd+4=goto_tab:4
+keybind = cmd+5=goto_tab:5
+keybind = cmd+6=goto_tab:6
+keybind = cmd+7=goto_tab:7
+keybind = cmd+8=goto_tab:8
+keybind = cmd+9=goto_tab:9
+keybind = cmd+shift+[=previous_tab
+keybind = cmd+shift+]=next_tab
+keybind = cmd+d=new_split:right
+keybind = cmd+shift+d=new_split:down

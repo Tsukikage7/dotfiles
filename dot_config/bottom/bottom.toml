@@ -1,0 +1,24 @@
+# bottom 配置 - Everforest Dark 主题
+
+[colors]
+table_header_color = "#a7c080"
+all_cpu_color = "#d3c6aa"
+avg_cpu_color = "#e67e80"
+cpu_core_colors = ["#e67e80", "#e69875", "#dbbc7f", "#a7c080", "#7fbbb3", "#d699b6"]
+ram_color = "#a7c080"
+swap_color = "#e69875"
+rx_color = "#a7c080"
+tx_color = "#e67e80"
+widget_title_color = "#a7c080"
+border_color = "#859289"
+highlighted_border_color = "#a7c080"
+text_color = "#d3c6aa"
+graph_color = "#859289"
+cursor_color = "#a7c080"
+selected_text_color = "#2d353b"
+selected_bg_color = "#a7c080"
+high_battery_color = "#a7c080"
+medium_battery_color = "#dbbc7f"
+low_battery_color = "#e67e80"
+gpu_core_colors = ["#7fbbb3", "#d699b6", "#e67e80", "#e69875", "#dbbc7f", "#a7c080"]
+arc_color = "#83c092"
